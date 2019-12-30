@@ -33,7 +33,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="copyright">
-                            <p>Copyright © 2019 DonutTimAmpga. <a href="https://sister.smk2guguak.sch.id" target="_blank">SMK NEGERI 2 Kec. GUGUAK</a>.</p>
+                            <p>Copyright © 2019 DonutTimAmpga. <a href="http://sister.smkn2guguak.sch.id/" target="_blank">SMK NEGERI 2 Kec. GUGUAK</a>.</p>
                         </div>
                     </div>
                 </div>

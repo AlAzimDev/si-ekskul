@@ -9,7 +9,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>@yield('judul-page')</title>
+    <title>@yield('judul-page') - ACC Admin</title>
 
     <!-- Fontfaces CSS-->
     <link href="{{asset('admin/css/font-face.css')}}" rel="stylesheet" media="all">

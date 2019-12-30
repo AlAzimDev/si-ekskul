@@ -6,7 +6,9 @@
     <i class="zmdi zmdi-plus"></i>add data</button>
 @endsection
 @section('head')
-<link rel="stylesheet" href="{{ asset('admin/vendor/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+<!-- <link rel="stylesheet" href="{{ asset('admin/vendor/datatables.net-bs/css/dataTables.bootstrap.min.css') }}"> -->
 @endsection
 @section('modal')
 <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
@@ -127,11 +129,12 @@
 
 @section('content')
 <br/>
-<div class="section__content section__content--p30">
-    <div class="container-fluid">
+@include('admins.layout.alert')
+<!-- <div class="section__content section__content--p30">
+    <div class="container-fluid"> -->
         <div class="row">
             <div class="col-lg-12">
-                <div class="table-responsive table--no-card m-b-30">
+                <div class="table-responsive">
                     <table class="table table-borderless table-striped table-earning" id="example">
                         <thead>
                         <tr>
@@ -152,16 +155,18 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    <!-- </div>
+</div> -->
 @endsection
 @section('script')
-<script src="{{ asset('admin/vendor/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('admin/vendor/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+<!-- <script src="{{ asset('admin/vendor/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('admin/vendor/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script> -->
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <script>
   $(function () {
     //$('#example1').DataTable()
-    $('#example').DataTable({
+    var table = $('#example').DataTable({
     //   'paging'      : true,
     //   'lengthChange': true,
     //   'searching'   : true,
