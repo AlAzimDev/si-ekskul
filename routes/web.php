@@ -36,11 +36,26 @@ Route::group(['prefix' => 'tutor','as'=>'admin-'], function () {
     });
     Route::group(['prefix' => 'soal', 'as' => 'soal-'], function(){
         Route::get('/', 'Admin\SoalController@index')->name('home');
+        Route::post('/store', 'Admin\SoalController@store')->name('store');
+        Route::get('/get-data', 'Admin\SoalController@data')->name('data');
+        Route::get('/{id}/{judul_soal}/edit', 'Admin\SoalController@edit');
+        Route::post('/{id}/{judul_soal}/update', 'Admin\SoalController@update');
+        Route::get('/{id}/{judul_soal}/hapus', 'Admin\SoalController@destroy');
+        Route::get('/{id}/{judul_soal}/data', 'Admin\SoalController@data_soal');
+        Route::post('/{id}/{judul_soal}/data/store', 'Admin\SoalController@data_store')->name('data-store');
+        Route::get('/{id}/{judul_soal}/data/{id_datasoal}/{soal}/hapus', 'Admin\SoalController@data_hapus');
     });
+    Route::group(['prefix' => 'nilai', 'as' => 'nilai-'], function(){
+        Route::get('/', 'Admin\NilaiController@index')->name('home');
+    });
+});
+Route::group(['prefix' => 'home'], function () {
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/blog', 'HomeController@blog')->name('blog');
+    Route::get('/events', 'HomeController@events')->name('events');
 });
 Auth::routes();
 
 Route::get('/', function(){
-    return view('welcome');
+    return redirect()->route('home');
 });
-Route::get('/home', 'HomeController@index')->name('home');

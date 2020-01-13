@@ -5,6 +5,10 @@
 <button type="button" class="au-btn au-btn-icon au-btn--blue" data-toggle="modal" data-target="#mediumModal">
     <i class="zmdi zmdi-plus"></i>add data</button>
 @endsection
+@section('head')
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+@endsection
 @section('modal')
 <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -19,14 +23,30 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body card-block">
-                            <form method="post" id="form1" class="form-horizontal" action="#" >
+                            <form method="post" id="form1" class="form-horizontal" action="{{route('admin-soal-store')}}" >
                                 @csrf
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="hf-materi-pembelajaran" class=" form-control-label">Materi Pembelajaran</label>
+                                        <label for="hf-judul-soak" class=" form-control-label">Judul Soal</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input type="text" id="hf-materi-pembelajaran" name="materi_pembelajaran" placeholder="Masukkan Materi Pembelajaran..." required="" class="form-control">
+                                        <input type="text" id="hf-judul-soak" name="judul_soal" placeholder="Masukkan Judul Soal..." required="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="hf-waktu-mulai" class=" form-control-label">Waktu Mulai</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input type="datetime-local" id="hf-waktu-mulai" name="waktu_mulai" required="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="hf-waktu-berhenti" class=" form-control-label">Waktu Berhenti</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input type="datetime-local" id="hf-waktu-berhenti" name="waktu_berhenti" required="" class="form-control">
                                     </div>
                                 </div>
                             </form>
@@ -82,7 +102,9 @@
             <table class="table table-borderless table-striped table-earning" id="example">
                 <thead>
                 <tr>
-                    <th>Materi Pembelajaran</th>
+                    <th>Judul Soal</th>
+                    <th>Waktu Mulai</th>
+                    <th>Waktu Berhenti</th>
                     <th style="text-align: right">Action</th>
                 </tr>
                 </thead>
@@ -94,4 +116,22 @@
 </div>
 @endsection
 @section('script')
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script>
+  $(function () {
+    //$('#example1').DataTable()
+    var table = $('#example').DataTable({
+      processing   : true,
+      serverSide: true,
+      ajax: '{!! route('admin-soal-data') !!}',
+      columns: [
+                { data: 'judul_soal', name: 'judul_soal' },
+                { data: 'waktu_mulai', name: 'waktu_mulai' },
+                { data: 'waktu_berhenti', name: 'waktu_berhenti' },
+                { data: 'action', className: 'dt-right', orderable: false, searchable: true }
+             ],
+    })
+  })
+</script>
 @endsection

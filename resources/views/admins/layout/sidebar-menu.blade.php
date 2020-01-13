@@ -14,7 +14,7 @@
     <a href="{{route('admin-soal-home')}}">
         <i class="fas fa-check-square"></i>Soal</a>
 </li>
-<li>
-    <a href="form.html">
+<li class="{{ Route::currentRouteName() == 'admin-nilai-home' ? 'active':'' }}">
+    <a href="{{route('admin-nilai-home')}}">
         <i class="fas fa-chart-bar"></i>Nilai</a>
 </li>
