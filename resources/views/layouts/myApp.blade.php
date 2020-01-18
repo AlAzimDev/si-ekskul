@@ -43,10 +43,9 @@
           @guest
           <li class="nav-item cta"><a href="/login" form="form" class="nav-link"><span>Login</span></a></li>
           @else
-          <li class="nav-item cta"><a href="{{ route('logout') }}" form="form" class="nav-link"><span>Login</span>
-            onclick="event.preventDefault();
-              document.getElementById('logout-form').submit();">
-            {{ __('Logout') }}</a>
+          <li class="nav-item cta"><a href="{{ route('logout') }}" form="form" class="nav-link" 
+            onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+            {{Auth::user()->name}}</a>
           </li>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
               @csrf
@@ -100,9 +99,7 @@
         <div class="row">
           <div class="col-md-12 text-center">
 
-            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> by DonutTimAmpga | <p onclick="http://sister.smkn2guguak.sch.id" target="_blank">SMK Negeri 2 Kec. Guguak</p>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> by DonutTimAmpga | <a href="http://sister.smkn2guguak.sch.id" target="_blank">SMKN 2 Guguak</a></p>
           </div>
         </div>
       </div>
@@ -128,7 +125,6 @@
   <script src="{{asset('genius/js/bootstrap-datepicker.js')}}"></script>
   <script src="{{asset('genius/js/jquery.timepicker.min.js')}}"></script>
   <script src="{{asset('genius/js/scrollax.min.js')}}"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="{{asset('genius/js/google-map.js')}}"></script>
   <script src="{{asset('genius/js/main.js')}}"></script>
     

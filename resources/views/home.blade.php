@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.myApp')
 
 @section('content')
 <div class="hero-wrap" style="background-image: url('{{asset('genius/images/bg_1.jpg')}}'); background-attachment:fixed;">
