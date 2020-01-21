@@ -96,6 +96,7 @@
     var table = $('#example').DataTable({
       processing   : true,
       serverSide: true,
+      responsive: true,
       ajax: '{!! route('admin-users-admin-data') !!}',
       columns: [
                 { data: 'name', name: 'name' },

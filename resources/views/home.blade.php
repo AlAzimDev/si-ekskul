@@ -29,7 +29,7 @@
                         <div class="one-half">
                             <div class="featured-blog d-md-flex">
                                 <div class="image d-flex order-last">
-                                    <a href="#" class="img" style="background: url({{asset('genius/images/image_2.jpg')}});"></a>
+                                    <a class="img" style="background: url({{asset('genius/images/image_2.jpg')}});"></a>
                                 </div>
                                 <div class="text order-first">
                                     <!-- <span class="date">Aug 20, 2018</span> -->
