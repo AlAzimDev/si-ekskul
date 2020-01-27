@@ -48,6 +48,15 @@ Route::group(['prefix' => 'tutor','as'=>'admin-'], function () {
     Route::group(['prefix' => 'nilai', 'as' => 'nilai-'], function(){
         Route::get('/', 'Admin\NilaiController@index')->name('home');
     });
+    Route::group(['prefix' => 'blog', 'as' => 'blog-'], function(){
+        Route::get('/', 'Admin\BlogController@index')->name('home');
+        Route::post('/store', 'Admin\BlogController@store')->name('store');
+        Route::get('/{id}/{judul_blog}/data', 'Admin\BlogController@data');
+        Route::get('/{id}/{judul_blog}/hapus', 'Admin\BlogController@destroy');
+    });
+    Route::group(['prefix' => 'home', 'as' => 'home-'],function(){
+        Route::get('/', 'Admin\HomeController@home')->name('home');
+    });
 });
 Route::group(['prefix' => 'home'], function () {
     Route::get('/', 'HomeController@index')->name('home');

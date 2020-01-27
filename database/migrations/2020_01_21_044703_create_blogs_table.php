@@ -15,9 +15,9 @@ class CreateBlogsTable extends Migration
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('judul_event');
+            $table->string('judul_blog');
             $table->string('image');
-            $table->text('isi_event');
+            $table->text('isi_blog');
             $table->timestamps();
         });
     }
