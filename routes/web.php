@@ -1,7 +1,7 @@
 <?php
 
 //Admin
-Route::group(['prefix' => 'tutor','as'=>'admin-'], function () {
+Route::group(['prefix' => 'tutor','as'=>'admin-','middleware'=>'checkuser:2'], function () {
     Route::get('/', 'Admin\HomeController@index')->name('home');
     Route::group(['prefix' => 'users','as'=>'users-'], function () {
         Route::get('/', 'Admin\UsersController@index')->name('home');
@@ -56,15 +56,23 @@ Route::group(['prefix' => 'tutor','as'=>'admin-'], function () {
     });
     Route::group(['prefix' => 'home', 'as' => 'home-'],function(){
         Route::get('/', 'Admin\HomeController@home')->name('home');
+        Route::post('/modal1', 'Admin\HomeController@modal1')->name('modal1');
+        Route::post('/modal2', 'Admin\HomeController@modal2')->name('modal2');
+        Route::post('/modal3', 'Admin\HomeController@modal3')->name('modal3');
+        Route::post('/modal4', 'Admin\HomeController@modal4')->name('modal4');
+        Route::post('/modal5', 'Admin\HomeController@modal5')->name('modal5');
     });
 });
 Route::group(['prefix' => 'home'], function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/blog', 'HomeController@blog')->name('blog');
+    Route::get('/blog/{id}/{judul_blog}/data', 'HomeController@blog_detail');
     Route::get('/events', 'HomeController@events')->name('events');
 });
-Auth::routes();
-
+// Auth::routes();
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/', function(){
     return redirect()->route('home');
 });

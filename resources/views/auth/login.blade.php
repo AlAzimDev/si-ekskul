@@ -1,5 +1,7 @@
 @extends('layouts.myApp')
 
+@section('judul-page','Login')
+
 @section('content')
 <section class="ftco-section">
 <div class="container">

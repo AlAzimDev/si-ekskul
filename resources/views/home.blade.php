@@ -1,12 +1,14 @@
 @extends('layouts.myApp')
 
+@section('judul-page','SMK N 2 GUGUAK - Ekstrakurikuler')
+
 @section('content')
 <div class="hero-wrap" style="background-image: url('{{asset('image/home/bg1-image.jpg')}}'); background-attachment:fixed;">
     <div class="overlay"></div>
     <div class="container">
     <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
         <div class="col-md-8 ftco-animate text-center">
-        <h1 class="mb-4">{{$home->where('jenis','judul-besar')->first()->isi}}</h1>
+        <h1 class="mb-4">@if($home->where('jenis','judul-besar')->first()){{$home->where('jenis','judul-besar')->first()->isi}}@else SMK N 2 Kecamatan Guguak @endif</h1>
         </div>
     </div>
     </div>
@@ -19,9 +21,9 @@
                 <div class="courseSearch-wrap d-md-flex flex-column-reverse">
                     <div class="full-wrap d-flex ftco-animate">
                         <div class="one-third order-last p-5">
-                            <span>{{$home->where('jenis','w1')->first()->isi}}</span>
-                            <h3>{{$home->where('jenis','w2')->first()->isi}}</h3>
-                            <p>{{$home->where('jenis','w3')->first()->isi}}</p>
+                            <span>@if($home->where('jenis','w1')->first()){{$home->where('jenis','w1')->first()->isi}}@else Apa yang Anda cari disini? @endif</span>
+                            <h3>@if($home->where('jenis','w2')->first()){{$home->where('jenis','w2')->first()->isi}}@else Membaca website kami? @endif</h3>
+                            <p>@if($home->where('jenis','w3')->first()){{$home->where('jenis','w3')->first()->isi}}@else Atau hanya mampir? @endif</p>
                         </div>
                         <div class="one-forth order-first img" style="background-image: url({{asset('image/home/ct1-image.jpg')}});"></div>
                     </div>
@@ -33,8 +35,8 @@
                                 </div>
                                 <div class="text order-first">
                                     <!-- <span class="date">Aug 20, 2018</span> -->
-                                    <h3><a href="javascript:void(0)">{{$home->where('jenis','judul-kecil')->first()->isi}}</a></h3>
-                                        <p>{{$home->where('jenis','description1')->first()->isi}}</p>
+                                    <h3><a href="javascript:void(0)">@if($home->where('jenis','judul-kecil')->first()){{$home->where('jenis','judul-kecil')->first()->isi}}@else Informatif Website Ekstrakulikuler @endif</a></h3>
+                                        <p>@if($home->where('jenis','description1')->first()){{$home->where('jenis','description1')->first()->isi}}@else Deskripsi tentang website ini @endif</p>
                                 </div>
                             </div>
                         </div>
@@ -85,9 +87,9 @@
     <div class="container">
         <div class="row d-md-flex justify-content-center">
             <div class="col-md-9 about-video text-center">
-                <h2 class="ftco-animate">{{$home->where('jenis','judul-menengah')->first()->isi}} <br/>Tekan tombol di dibawah!</h2>
+                <h2 class="ftco-animate">@if($home->where('jenis','judul-menengah')->first()){{$home->where('jenis','judul-menengah')->first()->isi}}@else Tentang Kami @endif <br/>Tekan tombol di dibawah!</h2>
                 <div class="video d-flex justify-content-center">
-                    <a href="{{$home->where('jenis','link-video')->first()->isi}}" class="button popup-vimeo d-flex justify-content-center align-items-center"><span class="ion-ios-play"></span></a>
+                    <iframe width="560" height="315" src="@if($home->where('jenis','link-video')->first()){{$home->where('jenis','link-video')->first()->isi}}@endif" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
@@ -105,14 +107,14 @@
             @foreach($blogs as $data)
                 <div class="col-md-4 ftco-animate">
                     <div class="blog-entry align-self-stretch">
-                        <a href="{{URL::to('tutor/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data" class="block-20"
+                        <a href="{{URL::to('home/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data" class="block-20"
                             style="background-image: url('{{asset('image/blog/')}}/{{$data->image}}');">
                         </a>
                         <div class="text p-4 d-block">
                             <div class="meta mb-3">
-                                <div><a href="{{URL::to('tutor/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data">{{$data->created_at}}</a><a href="{{URL::to('tutor/blog')}}/{{$data->id}}/{{$data->judul_blog}}/hapus" class="btn btn-danger"><i class="icon-trash"></i></a></div>
+                                <div><a href="{{URL::to('home/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data">{{$data->created_at}}</a></div>
                             </div>
-                            <h3 class="heading mt-3"><a href="{{URL::to('tutor/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data">{{$data->judul_blog}}</a></h3>
+                            <h3 class="heading mt-3"><a href="{{URL::to('home/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data">{{$data->judul_blog}}</a></h3>
                         </div>
                     </div>
                 </div>

@@ -33,7 +33,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="copyright">
-                            <p>Copyright © 2019 DonutTimAmpga. <a href="http://sister.smkn2guguak.sch.id/" target="_blank">SMK NEGERI 2 Kec. GUGUAK</a>.</p>
+                            <p>Copyright © 2019 DonutTimAmpga. <a href="@if(\App\Home::where('jenis','footer-link')->first()){{\App\Home::where('jenis','footer-link')->first()->isi}}@endif" target="_blank">@if(\App\Home::where('jenis','footer-judul')->first()){{\App\Home::where('jenis','footer-judul')->first()->isi}}@else Masukkan Footer @endif</a></p>
                         </div>
                     </div>
                 </div>

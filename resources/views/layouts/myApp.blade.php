@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <title>@yield('judul-page')</title>
+    <link rel="icon" href="{{asset('image/icon.jpg')}}" type="image/icon type"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -44,12 +45,15 @@
           @guest
           <li class="nav-item cta"><a href="/login" form="form" class="nav-link"><span>Login</span></a></li>
           @else
-          <li class="nav-item cta"><a href="{{ route('logout') }}" form="form" class="nav-link" 
-            onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-            {{Auth::user()->name}}</a>
-          </li>
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-              @csrf
+            @if(Auth::User()->role == 2)
+              <li class="nav-item"><a href="{{route('admin-home')}}" class="nav-link">Admin Home</a></li>
+            @endif
+            <li class="nav-item cta"><a href="{{ route('logout') }}" form="form" class="nav-link" 
+              onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+              {{Auth::user()->name}}</a>
+            </li>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
           @endguest
         </ul>
       </div>
@@ -65,16 +69,16 @@
         <div class="row mb-5">
           <div class="col-md-5">
             <div class="ftco-footer-widget mb-4">
-              <h2><a class="navbar-brand" href="index.html"><i class="flaticon-university"></i>SMK2GGK <br><small>Ekstrakulikuler</small></a></h2>
-              <p>{{$home->where('jenis','description2')->first()->isi}}</p>
+              <h2><a class="navbar-brand" href="/home"><i class="flaticon-university"></i>SMK2GGK <br><small>Ekstrakulikuler</small></a></h2>
+              @yield('button-tambahan')<p>@if($home->where('jenis','description2')->first()){{$home->where('jenis','description2')->first()->isi}}@else Deskripsi tentang webiste ini @endif</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                @if($home->where('jenis','social-facebook')->first() != null)
+                @if(($home->where('jenis','social-facebook')->first() != null)&&($home->where('jenis','social-facebook')->first()->isi != null))
                 <li class="ftco-animate"><a href="{{$home->where('jenis','social-facebook')->first()->isi}}" target="_blank"><span class="icon-facebook"></span></a></li>
                 @endif
-                @if($home->where('jenis','social-instagram')->first() != null)
+                @if(($home->where('jenis','social-instagram')->first() != null)&&($home->where('jenis','social-instagram')->first()->isi != null))
                 <li class="ftco-animate"><a href="{{$home->where('jenis','social-instagram')->first()->isi}}" target="_blank"><span class="icon-instagram"></span></a></li>
                 @endif
-                @if($home->where('jenis','social-twitter')->first() != null)
+                @if(($home->where('jenis','social-twitter')->first() != null)&&($home->where('jenis','social-twitter')->first()->isi != null))
                 <li class="ftco-animate"><a href="{{$home->where('jenis','social-twitter')->first()->isi}}" target="_blank"><span class="icon-twitter"></span></a></li>
                 @endif
               </ul>
@@ -87,9 +91,9 @@
               <div class="block-21 mb-4 d-flex">
                 <a class="blog-img mr-4" style="background-image: url('{{asset('image/blog/')}}/{{$data->image}}');"></a>
                 <div class="text">
-                  <h3 class="heading"><a href="{{URL::to('tutor/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data">{{$data->judul_blog}}</a></h3>
+                  <h3 class="heading"><a href="{{URL::to('home/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data">{{$data->judul_blog}}</a></h3>
                   <div class="meta">
-                    <div><a href="{{URL::to('tutor/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data"><span class="icon-calendar"></span> {{$data->created_at}}</a></div>
+                    <div><a href="{{URL::to('home/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data"><span class="icon-calendar"></span> {{$data->created_at}}</a></div>
                   </div>
                 </div>
               </div>
@@ -100,7 +104,7 @@
         <div class="row">
           <div class="col-md-12 text-center">
 
-            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> by DonutTimAmpga | <a href="{{$home->where('jenis','footer-link')->first()->isi}}" target="_blank">{{$home->where('jenis','footer-judul')->first()->isi}}</a></p>
+            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> by DonutTimAmpga | <a href="@if($home->where('jenis','footer-link')->first()){{$home->where('jenis','footer-link')->first()->isi}}@endif" target="_blank">@if($home->where('jenis','footer-judul')->first()){{$home->where('jenis','footer-judul')->first()->isi}}@else Masukkan Footer @endif</a> @yield('button-footer-tambahan')</p>
           </div>
         </div>
       </div>

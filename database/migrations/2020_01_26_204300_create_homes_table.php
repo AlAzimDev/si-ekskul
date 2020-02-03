@@ -16,7 +16,7 @@ class CreateHomesTable extends Migration
         Schema::create('homes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('jenis');
-            $table->text('isi')->unaible();
+            $table->text('isi')->nullable();
         });
     }
 
