@@ -9,6 +9,6 @@ class DataSiswa extends Model
 {
     public function user()
     {
-        return $this->hasOne('App\User','id_user');
+        return $this->hasOne('App\User','id','id_user');
     }
 }

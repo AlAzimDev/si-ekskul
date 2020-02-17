@@ -8,6 +8,9 @@
 @section('head')
 <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 @endsection
 @section('modal')
 <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
@@ -68,6 +71,7 @@
 @endsection
 
 @section('content')
+@include('sweetalert::alert')
 <br/>
 @include('admins.layout.alert')
 <div class="row">
@@ -91,20 +95,36 @@
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <script>
-  $(function () {
-    //$('#example1').DataTable()
-    var table = $('#example').DataTable({
-      processing   : true,
-      serverSide: true,
-      responsive: true,
-      ajax: '{!! route('admin-users-admin-data') !!}',
-      columns: [
-                { data: 'name', name: 'name' },
-                { data: 'email', name: 'email' },
-                { data: 'password2', name: 'password2' },
-                { data: 'action', orderable: false, searchable: true }
-             ],
-    })
-  })
+    $(function () {
+        //$('#example1').DataTable()
+        var table = $('#example').DataTable({
+        processing   : true,
+        serverSide: true,
+        responsive: true,
+        ajax: '{!! route('admin-users-admin-data') !!}',
+        columns: [
+                    { data: 'name', name: 'name' },
+                    { data: 'email', name: 'email' },
+                    { data: 'password2', name: 'password2' },
+                    { data: 'action', orderable: false, searchable: true }
+                ],
+        })
+    });
+    function adminDelete() {
+        var postId = $(event.currentTarget).data('admin');
+        swal({
+            title: "yakin untuk menghapus data ini?",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonClass: 'btn-danger waves-effect waves-light',
+            confirmButtonText: "Hapus",
+            cancelButtonText: "Tidak",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(){
+            window.location.href = postId;
+        });
+    }
 </script>
 @endsection

@@ -1,5 +1,19 @@
 <?php
 
+// Auth::routes();
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+//Free User
+Route::get('/', function(){
+    return redirect()->route('home');
+});
+Route::group(['prefix' => 'home'], function () {
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/blog', 'HomeController@blog')->name('blog');
+    Route::get('/blog/{id}/{judul_blog}/data', 'HomeController@blog_detail');
+    Route::get('/events', 'HomeController@events')->name('events');
+});
 //Admin
 Route::group(['prefix' => 'tutor','as'=>'admin-','middleware'=>'checkuser:2'], function () {
     Route::get('/', 'Admin\HomeController@index')->name('home');
@@ -63,16 +77,11 @@ Route::group(['prefix' => 'tutor','as'=>'admin-','middleware'=>'checkuser:2'], f
         Route::post('/modal5', 'Admin\HomeController@modal5')->name('modal5');
     });
 });
-Route::group(['prefix' => 'home'], function () {
-    Route::get('/', 'HomeController@index')->name('home');
-    Route::get('/blog', 'HomeController@blog')->name('blog');
-    Route::get('/blog/{id}/{judul_blog}/data', 'HomeController@blog_detail');
-    Route::get('/events', 'HomeController@events')->name('events');
+
+//Siswa
+Route::group(['prefix' => 'siswa','as'=>'siswa-','middleware'=>['checkuserreturnlogin:0','checkstatussoal']], function(){
+    Route::get('/', 'Siswa\ProfileController@index')->name('profile');
+    Route::get('/absensi-nilai', 'Siswa\AbsensiController@index')->name('absensi-nilai');
+    Route::get('/absensi/materi-pembelajaran/{id}/{data}', 'Siswa\AbsensiController@absen');
 });
-// Auth::routes();
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-Route::get('/', function(){
-    return redirect()->route('home');
-});
+Route::get('siswa/{id}/soal/{data}', 'Siswa\SoalController@index')->name('siswa-soal');

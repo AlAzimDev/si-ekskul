@@ -60,8 +60,8 @@
                         <div class="card-body card-block">
                             <div class="col col-md-12" align="center">
                                 <p>Note: Ketuk Code QR untuk men-download gambar</p>
-                                <a target="_blank" href="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(1000)->generate(URL::to('/'.$url))) !!} "  download="Absensi @if($lastabsensi != null){{$lastabsensi->created_at}}@endif">
-                                    <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(300)->generate(URL::to('/'.$url))) !!} " class="center">
+                                <a id="tolink" target="_blank" href="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(1000)->generate(URL::to('/'.$url))) !!} "  download="Absensi @if($lastabsensi != null){{$lastabsensi->created_at}}@endif" hidden="true">
+                                    <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(300)->generate($url) !!} " class="center">
                                 </a>
                             </div>
                         </div>
@@ -122,6 +122,8 @@ var x = setInterval(function() {
         document.getElementById("demo1").innerHTML = "Absensi sudah ditutup";
         document.getElementById("tombolShare").disabled = true;
         document.getElementById("tombolShare").className += " disabled";
+    }else{
+        document.getElementById("tolink").hidden = false;
     }
 }, 1000);
 @else

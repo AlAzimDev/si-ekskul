@@ -23,6 +23,7 @@ class CreateDataSiswasTable extends Migration
             $table->string('alamat')->nullable();
             $table->string('handphone')->nullable();
             $table->integer('id_user')->nullable();
+            $table->integer('id_soal')->nullable();
             $table->timestamps();
         });
     }

@@ -1,6 +1,11 @@
 @extends('admins.layout.header')
 
 @section('judul-page','Data Soal-Soal')
+@section('head')
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
+@endsection
 @section('button')
 <button type="button" class="au-btn au-btn-icon au-btn--blue" data-toggle="modal" data-target="#mediumModal">
     <i class="zmdi zmdi-plus"></i>add data</button>
@@ -31,7 +36,7 @@
                                         <label class=" form-control-label">Soal</label>
                                     </div>
                                     <div class="col-11 col-md-8">
-                                        <textarea class="form-control" name="soal[]" placeholder="Masukkan Soal..." required></textarea>
+                                        <textarea class="form-control summernote" name="soal[]" placeholder="Masukkan Soal..." required></textarea>
                                     </div>
                                     <a href="#" class="removeRow float-right danger"><i class="fa fa-trash"></i></a>
                                 </div>
@@ -69,7 +74,7 @@
                 <tbody>
                 @foreach($datasoal as $data)
                 <tr>
-                    <td>{{$data->soal}}</td>
+                    <td>{!!$data->soal!!}</td>
                     <td style="text-align: right"><a href="data/{{$data->id}}/{{$data->soal}}/hapus" class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
                 </tr>
                 @endforeach
@@ -82,6 +87,7 @@
 @section('script')
 <script type="text/javascript">
 $(document).ready(function(){
+    summernote();
     $('.addRow').on('click', function(){
         addRow();
     });
@@ -92,11 +98,12 @@ $(document).ready(function(){
                 '<label class=" form-control-label">Soal</label>'+
             '</div>'+
             '<div class="col-11 col-md-8">'+
-                '<textarea class="form-control" name="soal[]" placeholder="Masukkan Soal..." required></textarea>'+
+                '<textarea class="form-control summernote" name="soal[]" required></textarea>'+
             '</div>'+
             '<a href="#" class="removeRow float-right danger"><i class="fa fa-trash"></i></a>'+
         '</div>';
         $('#form1').append(tr);
+        summernote();
     }
     $('div').on('click','.removeRow',function(){
         var last = $('#form1 .form-group').length;
@@ -104,6 +111,34 @@ $(document).ready(function(){
             $(this).parent().remove();
         }
     });
+    function summernote(){
+        $('.summernote').summernote({
+            placeholder: 'Tap disini untuk memasukkan soal',
+            tabsize: 2,
+            height: 120,
+            toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['para', ['paragraph']]
+            ]
+        });
+    }
+});
+</script>
+<script>
+$(document).ready(function(){
+    function summernote(){
+        $('.summernote').summernote({
+            placeholder: 'Tap disini untuk memasukkan soal',
+            tabsize: 2,
+            height: 120,
+            toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['para', ['paragraph']]
+            ]
+        });
+    }
 });
 </script>
 @endsection

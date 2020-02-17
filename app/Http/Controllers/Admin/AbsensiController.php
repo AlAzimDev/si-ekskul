@@ -8,6 +8,8 @@ use App\DataAbsensi;
 use DataTables;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use URL;
 
 class AbsensiController extends Controller
 {
@@ -15,7 +17,11 @@ class AbsensiController extends Controller
     {
         $absensi    = Absensi::orderBy('created_at','DESC')->get();
         $lastabsensi= $absensi->first();
-        $url        = 'tutor/absensi';
+        if($lastabsensi){
+            $url        = 'siswa/absensi/materi-pembelajaran/'.$lastabsensi->id.'/'.Str::slug($lastabsensi->materi_pembelajaran, "%20").$lastabsensi->id;
+        }else{
+            $url = '';
+        }
         return view('admins.absensi.index', compact('absensi','lastabsensi','url'));
     }
     public function store(Request $request)

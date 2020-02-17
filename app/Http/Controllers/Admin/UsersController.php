@@ -67,7 +67,7 @@ class UsersController extends Controller
             $user  = User::where('role','2');
             return DataTables::of($user)
                 ->addColumn('action', function($user){
-                    return '<a href="/tutor/users/admin/'.$user->id.'/'.$user->name.'/edit" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> Edit</a> <a href="admin/'.$user->id.'/'.$user->name.'/hapus" class="btn btn-danger" onclick="return ConfirmDelete()"><i class="fa fa-trash"></i></a>';
+                    return '<a href="/tutor/users/admin/'.$user->id.'/'.$user->name.'/edit" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> Edit</a> <a data-admin="admin/'.$user->id.'/'.$user->name.'/hapus" class="btn btn-danger admin-remove" href="#" onclick="adminDelete()"><i class="fa fa-trash"></i></a>';
                 })
                 ->make(true);
         }

@@ -47,6 +47,8 @@
           @else
             @if(Auth::User()->role == 2)
               <li class="nav-item"><a href="{{route('admin-home')}}" class="nav-link">Admin Home</a></li>
+            @elseif(Auth::User()->role == 0)
+              <li class="nav-item"><a href="{{route('siswa-profile')}}" class="nav-link">Siswa Home</a></li>
             @endif
             <li class="nav-item cta"><a href="{{ route('logout') }}" form="form" class="nav-link" 
               onclick="event.preventDefault();document.getElementById('logout-form').submit();">

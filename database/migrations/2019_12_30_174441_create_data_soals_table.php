@@ -15,7 +15,7 @@ class CreateDataSoalsTable extends Migration
     {
         Schema::create('data_soals', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('soal');
+            $table->text('soal');
             $table->integer('id_soal');
             $table->timestamps();
         });

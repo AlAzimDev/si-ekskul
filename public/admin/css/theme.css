@@ -1326,12 +1326,12 @@ section {
 }
 
 .noti-wrap .noti__item:last-child {
-    margin-right: 50px;
+    margin-right: 165px;
 }
 
 @media (max-width: 1200px) {
     .noti-wrap .noti__item:last-child {
-        margin-right: 30px;
+        margin-right: 155px;
     }
 }
 
