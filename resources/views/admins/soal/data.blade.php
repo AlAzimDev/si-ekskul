@@ -1,10 +1,13 @@
 @extends('admins.layout.header')
 
-@section('judul-page','Data Soal-Soal')
+@section('judul-page','Data Soal')
 @section('head')
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
+
+<link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 @endsection
 @section('button')
 <button type="button" class="au-btn au-btn-icon au-btn--blue" data-toggle="modal" data-target="#mediumModal">
@@ -75,7 +78,7 @@
                 @foreach($datasoal as $data)
                 <tr>
                     <td>{!!$data->soal!!}</td>
-                    <td style="text-align: right"><a href="data/{{$data->id}}/{{$data->soal}}/hapus" class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
+                    <td style="text-align: right"><a data-admin="data/{{$data->id}}/hapus" href="#" class="btn btn-danger admin-remove" onclick="adminDelete()"><i class="fa fa-trash"></i></a></td>
                 </tr>
                 @endforeach
                 </tbody>
@@ -140,5 +143,21 @@ $(document).ready(function(){
         });
     }
 });
+    function adminDelete() {
+        var postId = $(event.currentTarget).data('admin');
+        swal({
+            title: "yakin untuk menghapus data ini? jawaban soal ini juga akan ikut terhapus!",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonClass: 'btn-danger waves-effect waves-light',
+            confirmButtonText: "Hapus",
+            cancelButtonText: "Tidak",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(){
+            window.location.href = postId;
+        });
+    }
 </script>
 @endsection

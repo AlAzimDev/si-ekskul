@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="id, in">
 <head>
     <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="au theme template">
+    <meta name="description" content="Sistem Informasi Ektrakurikuler ACC">
     <meta name="author" content="Hau Nguyen">
-    <meta name="keywords" content="au theme template">
+    <meta name="keywords" content="Sistem Informasi Ektrakurikuler ACC">
 
     <!-- Title Page-->
     <title>@yield('judul-page') - ACC Admin</title>
@@ -59,6 +59,7 @@
             <nav class="navbar-mobile">
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
+                        @include('sweetalert::alert')
                         @include('admins.layout.sidebar-menu')
                     </ul>
                 </div>

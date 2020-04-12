@@ -1,6 +1,6 @@
 @extends('admins.layout.header')
 
-@section('judul-page','Data Absensi')
+@section('judul-page','Detail Data Absensi')
 @section('head')
 <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -33,7 +33,7 @@
       serverSide: true,
       ajax: '/tutor/absensi/detail/get-data-detail/{{$id}}/{{$materi_pembelajaran}}/detail',
       columns: [
-                { data: 'id_user', name: 'id_user' },
+                { data: 'nama_user', name: 'nama_user' },
                 // { data: 'action', orderable: false, searchable: true }
              ],
     })

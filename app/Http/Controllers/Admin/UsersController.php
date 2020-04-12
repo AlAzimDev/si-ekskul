@@ -3,10 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Alert;
+use Auth;
+use App\Answer;
+use App\DataAbsen;
 use App\DataSiswa;
+use App\Exports\DataSiswasExport;
 use App\User;
 use Carbon\Carbon;
 use Exception;
+use Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\DataTables;
@@ -64,7 +70,11 @@ class UsersController extends Controller
     public function data_admin(Request $request)
     {
         if ($request->ajax()) {
-            $user  = User::where('role','2');
+            if(Auth::User()->id == 1){
+                $user  = User::where([['role','2']]);
+            }else{
+                $user  = User::where([['role','2'],['id','!=',Auth::User()->id]]);
+            }
             return DataTables::of($user)
                 ->addColumn('action', function($user){
                     return '<a href="/tutor/users/admin/'.$user->id.'/'.$user->name.'/edit" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> Edit</a> <a data-admin="admin/'.$user->id.'/'.$user->name.'/hapus" class="btn btn-danger admin-remove" href="#" onclick="adminDelete()"><i class="fa fa-trash"></i></a>';
@@ -83,17 +93,26 @@ class UsersController extends Controller
             $user->role         = 2;
 
             if($user->save()){
-                return redirect()->back()->with('success', 'Data telah tersimpan');
+                alert()->success('Sukses','Data sukses disimpan');
+                return redirect()->back();
             }
-            return redirect()->back()->with('danger', 'Terjadi masalah dalam penginputan data, harap periksa ulang');
+            alert()->warning('Maaf','Terjadi masalah dalam penginputan data, harap periksa ulang');
+            return redirect()->back();
         } catch (Exception $e){
-            return redirect()->back()->with('danger', 'Terjadi masalah dalam penginputan data, harap periksa ulang');
+            alert()->warning('Maaf','Terjadi masalah dalam penginputan data, harap periksa ulang');
+            return redirect()->back();
         }
     }
     public function edit_admin($id, $name){
-        if(User::where([['id',$id],['name',$name]])->first() != null){
-            $user       = User::where([['id',$id],['name',$name]])->first();
-            return view('admins.users.admin.edit', compact('user'));
+        try {
+            if(User::where([['id',$id],['name',$name]])->first() != null){
+                $user       = User::where([['id',$id],['name',$name]])->first();
+                return view('admins.users.admin.edit', compact('user'));
+            }else{
+                return abort('404');
+            }
+        } catch (\Throwable $th) {
+            return abort('404');
         }
     }
     public function update_admin(Request $request, $id, $name){
@@ -105,10 +124,12 @@ class UsersController extends Controller
                 $user->password     = Hash::make($request->get('password'));
                 $user->password2    = $request->get('password');
                 $user->update();
-                return redirect()->route('admin-users-admin')->with('success', 'Data berhasil diupdate');
+                alert()->success('Sukses','Data berhasil diupdate');
+                return redirect()->route('admin-users-admin');
             }
         } catch (Exception $e){
-            return redirect()->route('admin-users-admin')->with('danger', 'Terjadi masalah');
+            alert()->warning('Maaf','Terjadi masalah');
+            return redirect()->route('admin-users-admin');
         }
     }
     public function destroy_admin($id,$name){
@@ -117,14 +138,16 @@ class UsersController extends Controller
             // dd($datasiswa->delete());
             $cekuser    = User::where('role',2)->first();
 
-            if($user->id == $cekuser->id){
-                return redirect()->back()->with('danger', 'Data ini merupakan data yang tidak bisa dihapus');
+            if($user->id == 1){
+                alert()->warning('Maaf','Data ini merupakan data yang tidak bisa dihapus');
+                return redirect()->back();
             }
-            if($user->delete()){
-                return redirect()->back()->with('success', 'Data berhasil dihapus');
-            }
+            $user->delete();
+            alert()->success('Sukses','Data berhasil dihapus');
+            return redirect()->back();
         } catch (Exception $e){
-            return redirect()->back()->with('danger', 'Terjadi masalah dalam proses penghapusan data');
+            alert()->warning('Maaf','Data gagal dihapus');
+            return redirect()->back();
         }
     }
     public function index_operator()
@@ -137,7 +160,7 @@ class UsersController extends Controller
             $user  = User::where('role',1);
             return DataTables::of($user)
                 ->addColumn('action', function($user){
-                    return '<a href="/tutor/users/operator/'.$user->id.'/'.$user->name.'/edit" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> Edit</a> <a href="operator/'.$user->id.'/'.$user->name.'/hapus" class="btn btn-danger" onclick="return ConfirmDelete()"><i class="fa fa-trash"></i></a>';
+                    return '<a href="/tutor/users/operator/'.$user->id.'/'.$user->name.'/edit" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> Edit</a> <a data-admin="operator/'.$user->id.'/'.$user->name.'/hapus" href="#" class="btn btn-danger admin-remove" onclick="adminDelete()"><i class="fa fa-trash"></i></a>';
                 })
                 ->make(true);
         }
@@ -153,17 +176,22 @@ class UsersController extends Controller
             $user->role         = 1;
 
             if($user->save()){
-                return redirect()->back()->with('success', 'Data telah tersimpan');
+                alert()->success('Sukses','Data berhasil disimpan');
+                return redirect()->back();
             }
-            return redirect()->back()->with('danger', 'Terjadi masalah dalam penginputan data, harap periksa ulang');
+            alert()->warning('Maaf','Data gagal disimpan');
+            return redirect()->back();
         } catch (Exception $e){
-            return redirect()->back()->with('danger', 'Terjadi masalah dalam penginputan data, harap periksa ulang');
+            alert()->warning('Maaf','Data gagal disimpan');
+            return redirect()->back();
         }
     }
     public function edit_operator($id, $name){
         if(User::where([['id',$id],['name',$name]])->first() != null){
             $user       = User::where([['id',$id],['name',$name]])->first();
             return view('admins.users.operator.edit', compact('user'));
+        }else{
+            return abort('404');
         }
     }
     public function update_operator(Request $request, $id, $name){
@@ -175,10 +203,14 @@ class UsersController extends Controller
                 $user->password     = Hash::make($request->get('password'));
                 $user->password2    = $request->get('password');
                 $user->update();
-                return redirect()->route('admin-users-operator')->with('success', 'Data berhasil diupdate');
+                alert()->success('Sukses','Data berhasil diupdate');
+                return redirect()->route('admin-users-operator');
             }
+            alert()->warning('Maaf','Data gagal diupdate');
+            return redirect()->route('admin-users-operator');
         } catch (Exception $e){
-            return redirect()->route('admin-users-operator')->with('danger', 'Terjadi masalah');
+            alert()->warning('Maaf','Data gagal diupdate');
+            return redirect()->route('admin-users-operator');
         }
     }
     public function destroy_operator($id,$name){
@@ -186,10 +218,12 @@ class UsersController extends Controller
             $user       = User::where([['id',$id],['name',$name]])->first();
             // dd($datasiswa->delete());
             if($user->delete()){
-                return redirect()->back()->with('success', 'Data berhasil dihapus');
+                alert()->success('Sukses','Data berhasil dihapus');
+                return redirect()->back();
             }
         } catch (Exception $e){
-            return redirect()->back()->with('danger', 'Terjadi masalah dalam proses penghapusan data');
+            alert()->warning('Maaf','Data gagal dihapus');
+            return redirect()->back();
         }
     }
     public function index_siswa()
@@ -204,10 +238,6 @@ class UsersController extends Controller
                 ->addColumn('jenis_kelamin', function($datasiswa){
                     if($datasiswa->jenis_kelamin == 'll'){return "Laki-Laki";}else{return "Perempuan";};
                 })
-                ->addColumn('name', function($datasiswa){
-                    $user   = User::where('id',$datasiswa->id_user)->get();
-                    foreach($user as $data){return $data->name;}
-                })
                 ->addColumn('email', function($datasiswa){
                     $user   = User::where('id',$datasiswa->id_user)->get();
                     foreach($user as $data){return $data->email;}
@@ -216,8 +246,14 @@ class UsersController extends Controller
                     $user   = User::where('id',$datasiswa->id_user)->get();
                     foreach($user as $data){return $data->password2;}
                 })
+                ->addColumn('tempattanggal_lahir', function($datasiswa){
+                    return $datasiswa->tempat_lahir.', '.date('d M Y', strtotime($datasiswa->tanggal_lahir));
+                })
+                ->addColumn('handphone', function($datasiswa){
+                    return substr($datasiswa->handphone, 0, 4)."-".substr($datasiswa->handphone, 4, 4)."-".substr($datasiswa->handphone,8);
+                })
                 ->addColumn('action', function($datasiswa){
-                    return '<a href="/tutor/users/siswa/'.$datasiswa->id.'/'.$datasiswa->nama_lengkap.'/edit" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> Edit</a> <a href="siswa/'.$datasiswa->id.'/'.$datasiswa->nama_lengkap.'/hapus" class="btn btn-danger" onclick="return ConfirmDelete()"><i class="fa fa-trash"></i></a>';
+                    return '<a href="/tutor/users/siswa/'.$datasiswa->id.'/'.$datasiswa->nama_lengkap.'/edit" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> Edit</a> <a data-admin="siswa/'.$datasiswa->id.'/'.$datasiswa->nama_lengkap.'/hapus" href="#" class="btn btn-danger admin-remove" onclick="adminDelete()"><i class="fa fa-trash"></i></a>';
                 })
                 ->make(true);
         }
@@ -226,7 +262,7 @@ class UsersController extends Controller
     {
         try {
             $user               = new User();
-            $user->name         = $request->get('name');
+            $user->name         = $request->get('nama_panggilan');
             $user->email        = $request->get('email');
             $user->password     = Hash::make($request->get('password'));
             $user->password2    = $request->get('password');
@@ -243,14 +279,17 @@ class UsersController extends Controller
                 $siswa->handphone       = $request->get('handphone');
                 $siswa->id_user         = $user->id;
                 if($siswa->save()){
-                    return redirect()->back()->with('success', 'Data telah tersimpan');
+                    alert()->success('Sukses','Data berhasil disimpan');
+                    return redirect()->back();
                 }else{
                     $user->delete();
                 }
             }
-            return redirect()->back()->with('danger', 'Terjadi masalah dalam penginputan data, harap periksa ulang');
+            alert()->warning('Maaf','Data gagal disimpan');
+            return redirect()->back();
         } catch (Exception $e){
-            return redirect()->back()->with('danger', 'Terjadi masalah dalam penginputan data, harap periksa ulang');
+            alert()->warning('Maaf','Data gagal disimpan');
+            return redirect()->back();
         }
     }
     public function edit_siswa($id, $nama_lengkap){
@@ -258,6 +297,8 @@ class UsersController extends Controller
             $datasiswa  = DataSiswa::where([['id',$id],['nama_lengkap',$nama_lengkap]])->first();
             $user       = User::find($datasiswa->id_user);
             return view('admins.users.siswa.edit', compact('datasiswa','user'));
+        }else{
+            return abort('404');
         }
     }
     public function update_siswa(Request $request, $id, $nama_lengkap){
@@ -274,17 +315,20 @@ class UsersController extends Controller
 
                 if($siswa->update()){
                     $user               = User::find($siswa->id_user);
-                    $user->name         = $request->get('name');
+                    $user->name         = $request->get('nama_panggilan');
                     $user->email        = $request->get('email');
                     $user->password     = Hash::make($request->get('password'));
                     $user->password2    = $request->get('password');
                     $user->update();
-                    return redirect()->route('admin-users-siswa')->with('success', 'Data berhasil diupdate');
+                    alert()->success('Sukses','Data berhasil disimpan');
+                    return redirect()->route('admin-users-siswa');
                 }
-                return redirect()->route('admin-users-siswa')->with('danger', 'Terjadi masalah');
+                alert()->warning('Maaf','Data gagal diupdate');
+                return redirect()->route('admin-users-siswa');
             }
         } catch (Exception $e){
-            return redirect()->route('admin-users-siswa')->with('danger', 'Terjadi masalah');
+            alert()->warning('Maaf','Data gagal diupdate');
+            return redirect()->route('admin-users-siswa');
         }
     }
     public function destroy_siswa($id,$nama_lengkap){
@@ -293,10 +337,40 @@ class UsersController extends Controller
             $user       = User::find($datasiswa->id_user);
             // dd($datasiswa->delete());
             if($user->delete() && $datasiswa->delete()){
-                return redirect()->back()->with('success', 'Data berhasil dihapus');
+                foreach(Answer::where('id_user',$datasiswa->id_user)->pluck('id')->toArray() as $data){
+                    Answer::find($data)->delete();
+                }
+                foreach(DataAbsen::where('id_user',$datasiswa->id_user)->pluck('id')->toArray() as $data){
+                    DataAbsen::find($data)->delete();
+                }
+                alert()->success('Sukses','Data berhasil dihapus');
+                return redirect()->back();
             }
         } catch (Exception $e){
-            return redirect()->back()->with('danger', 'Terjadi masalah dalam proses penghapusan data');
+            alert()->warning('Maaf','Data gagal dihapus');
+            return redirect()->back();
+        }
+    }
+
+    //Export
+    public function download_datasiswa(Request $request){
+        try {
+            if($request->get('format_waktu') == 'jam'){
+                $waktu = $request->get('waktu') * 1;
+            }else if($request->get('format_waktu') == 'hari'){
+                $waktu = $request->get('waktu') * 24;
+            }else if($request->get('format_waktu') == 'minggu'){
+                $waktu = $request->get('waktu') * (24*7);
+            }else if($request->get('format_waktu') == 'bulan'){
+                $waktu = $request->get('waktu') * (24*30);
+            }else{
+                $waktu = $request->get('waktu') * (24*365);
+            }
+            // dd($waktu);
+            return Excel::download(new DataSiswasExport($request->get('format_waktu'),$request->get('mode'),$waktu), 'DataSiswa.'.$request->get('extension'));
+        } catch (Exception $e){
+            alert()->warning('Maaf','Data gagal didownload');
+            return redirect()->back();
         }
     }
 }

@@ -1,6 +1,6 @@
 @extends('admins.layout.header')
 
-@section('judul-page','Data Operator')
+@section('judul-page','Data Petugas')
 @section('button')
 <button type="button" class="au-btn au-btn-icon au-btn--blue" data-toggle="modal" data-target="#mediumModal">
     <i class="zmdi zmdi-plus"></i>add data</button>
@@ -8,6 +8,9 @@
 @section('head')
 <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 @endsection
 @section('modal')
 <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
@@ -47,6 +50,7 @@
                                     </div>
                                     <div class="col-12 col-md-9">
                                         <input type="password" id="hf-password" name="password" placeholder="Masukkan Password..." required="" class="form-control">
+                                        <input type="checkbox" onclick="showHide()"> Show Password
                                     </div>
                                 </div>
                             </form>
@@ -79,7 +83,7 @@
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Password</th>
-                    <th>Action</th>
+                    <th style="text-align: right">Action</th>
                 </tr>
                 </thead>
             </table>
@@ -101,9 +105,33 @@
                 { data: 'name', name: 'name' },
                 { data: 'email', name: 'email' },
                 { data: 'password2', name: 'password2' },
-                { data: 'action', orderable: false, searchable: true }
+                { data: 'action', orderable: false, searchable: true, className: 'dt-body-right' }
              ],
     })
-  })
+  });
+    function adminDelete() {
+        var postId = $(event.currentTarget).data('admin');
+        swal({
+            title: "yakin untuk menghapus data ini?",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonClass: 'btn-danger waves-effect waves-light',
+            confirmButtonText: "Hapus",
+            cancelButtonText: "Tidak",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(){
+            window.location.href = postId;
+        });
+    }
+    function showHide(){
+        var x = document.getElementById('hf-password');
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
 </script>
 @endsection

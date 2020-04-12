@@ -50,6 +50,7 @@
                     </li>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
+                    </form>
                 </ul>
             </div>
         </div>
@@ -70,7 +71,8 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-body card-block">
-                                <form method="post" id="form1" class="form-horizontal" action="{{route('admin-home-modal1')}}" enctype="multipart/form-data">
+                                <form method="post" id="form10" class="form-horizontal" 
+                                    action="{{route('admin-home-modal1')}}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row form-group">
                                         <div class="col col-md-3">
@@ -93,8 +95,7 @@
                                     </div>
                                     <div class="row form-group">
                                         <div class="col-12 col-md-12">
-                                            <p>* Note: Masukkan foto baru dengan format .jpg untuk mengubah background
-                                                image.</p>
+                                            <p>* Note: Masukkan foto baru dengan format .jpg untuk mengubah background image.</p>
                                         </div>
                                     </div>
                                 </form>
@@ -103,7 +104,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button form="form1" type="submit" class="btn btn-primary btn-sm">
+                    <button form="form10" type="submit" class="btn btn-primary btn-sm">
                         <i class="fa fa-dot-circle-o"></i> Submit
                     </button>
                 </div>

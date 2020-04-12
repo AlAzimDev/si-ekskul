@@ -69,3 +69,7 @@
     </div>
 </div>
 @endsection
+
+@section('script')
+<script src="{{asset('admin/vendor/jquery-3.2.1.min.js')}}"></script>
+@endsection

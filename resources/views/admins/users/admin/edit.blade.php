@@ -38,6 +38,7 @@
                                     </div>
                                     <div class="col-12 col-md-9">
                                         <input type="password" id="hf-password" name="password" value="{{$user->password2}}" placeholder="Masukkan Password..." required="" class="form-control">
+                                        <input type="checkbox" onclick="showHide()"> Show Password
                                     </div>
                                 </div>
                             </form>
@@ -55,4 +56,17 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+<script>
+    function showHide(){
+        var x = document.getElementById('hf-password');
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
 @endsection

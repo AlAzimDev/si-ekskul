@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Soal;
 use App\DataSoal;
+use App\Answer;
+use Alert;
 use Exception;
 use DataTables;
 use Illuminate\Http\Request;
@@ -13,7 +15,8 @@ use Illuminate\Routing\Route;
 class SoalController extends Controller
 {
     public function index(){
-        return view('admins.soal.index');
+        $soal  = Soal::orderBy('created_at','DESC')->get();
+        return view('admins.soal.index', compact('soal'));
     }
     public function data(Request $request)
     {
@@ -22,8 +25,9 @@ class SoalController extends Controller
             return DataTables::of($soal)
                 ->addColumn('action', function($soal){
                     return '<a href="/tutor/soal/'.$soal->id.'/'.$soal->judul_soal.'/edit" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> Edit</a> 
-                        <a href="soal/'.$soal->id.'/'.$soal->judul_soal.'/hapus" class="btn btn-danger" onclick="return ConfirmDelete()"><i class="fa fa-trash"></i></a> 
-                        <a href="soal/'.$soal->id.'/'.$soal->judul_soal.'/data" class="btn btn-light"><i class="fa fa-cogs"></i></a>';
+                        <a data-admin="soal/'.$soal->id.'/'.$soal->judul_soal.'/hapus" href="#" class="btn btn-danger admin-remove" onclick="adminDelete()"><i class="fa fa-trash"></i></a> 
+                        <a href="soal/'.$soal->id.'/'.$soal->judul_soal.'/data" class="btn btn-light"><i class="fa fa-cogs"></i></a>
+                        <a href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#mediumModal'.$soal->id.'"><i class="fa fa-share"></i></a>';
                 })
                 ->make(true);
         }
@@ -35,9 +39,11 @@ class SoalController extends Controller
             $soal->waktu_mulai  = $request->get('waktu_mulai');
             $soal->waktu_berhenti=$request->get('waktu_berhenti');
             $soal->save();
-            return redirect()->back()->with('success', 'Data telah tersimpan');
+            alert()->success('Sukses','Data berhasil disimpan');
+            return redirect()->back();
         }catch(Exception $e){
-            return redirect()->back()->with('danger', 'Data gagal disimpan');
+            alert()->warning('Maaf','Data gagal disimpan');
+            return redirect()->back();
         }
     }
     public function edit($id, $judul_soal){
@@ -45,7 +51,7 @@ class SoalController extends Controller
             $soal = Soal::where([['id',$id],['judul_soal',$judul_soal]])->first();
             return view('admins.soal.edit', compact('soal'));
         }catch(Exception $e){
-
+            return abort('404');
         }
     }
     public function update(Request $request, $id, $judul_soal){
@@ -55,18 +61,27 @@ class SoalController extends Controller
             $soal->waktu_mulai  = $request->get('waktu_mulai');
             $soal->waktu_berhenti=$request->get('waktu_berhenti');
             $soal->update();
-            return redirect()->route('admin-soal-home')->with('success','Data telah diperbaharui');
+            alert()->success('Sukses','Data berhasil diupdate');
+            return redirect()->back();
         }catch(Exception $e){
-            return redirect()->route('admin-soal-home')->with('danger','Data gagal diperbaharui');
+            alert()->warning('Maaf','Data gagal diupdate');
+            return redirect()->back();
         }
     }
     public function destroy($id, $judul_soal){
         try{
-            $soal               = Soal::where([['id',$id],['judul_soal',$judul_soal]])->first();
+            $soal = Soal::where([['id',$id],['judul_soal',$judul_soal]])->first();
+            $datasoal = DataSoal::where('id_soal',$soal->id)->first();
+            if($datasoal){
+                alert()->warning('Maaf','Data belum berhasil dihapus, silahkan kosongkan soal terlebih dahulu');
+                return redirect()->back();
+            }
             $soal->delete();
-            return redirect()->route('admin-soal-home')->with('success','Data telah dihapus');
+            alert()->success('Sukses','Data berhasil dihapus');
+            return redirect()->back();
         }catch(Exception $e){
-            return redirect()->route('admin-soal-home')->with('danger','Data gagal dihapus');
+            alert()->warning('Maaf','Data gagal dihapus');
+            return redirect()->back();
         }
     }
     public function data_soal($id, $judul_soal){
@@ -75,8 +90,7 @@ class SoalController extends Controller
             $datasoal   = DataSoal::where('id_soal',$soal->id)->get();
             return view('admins.soal.data', compact('soal','datasoal'));
         }catch(Exception $e){
-            // return redirect()->route('admin-soal-home')->with('danger','Data gagal dihapus');
-            // diubah menjadi link 404 not found
+            return abort('404');
         }
     }
     public function data_store(Request $request, $id, $judul_soal){
@@ -89,22 +103,30 @@ class SoalController extends Controller
                     $datasoal->id_soal = $soal->id;
                     $datasoal->save();
                 }
-                return redirect()->back()->with('success','Data berhasil disimpan');
+                alert()->success('Sukses','Data berhasil disimpan');
+                return redirect()->back();
             }else{
-                return redirect()->back()->with('danger','Data gagal disimpan');
+                alert()->warning('Maaf','Data gagal disimpan');
+                return redirect()->back();
             }
         }catch(Exception $e){
-            return redirect()->back()->with('danger','Data gagal disimpan');
+            alert()->warning('Maaf','Data gagal disimpan');
+            return redirect()->back();
         }
     }
-    public function data_hapus($id, $judul_soal, $id_datasoal, $soal){
+    public function data_hapus($id, $judul_soal, $id_datasoal){
         try{
             $soal   = Soal::where([['id',$id],['judul_soal',$judul_soal]])->first();
-            $datasoal= DataSoal::where([['id',$id_datasoal],['id_soal',$soal->id]],[['soal',$soal]])->first();
+            $datasoal= DataSoal::where([['id',$id_datasoal],['id_soal',$soal->id]])->first();
+            foreach(Answer::where('id_datasoal',$datasoal->id)->get() as $data){
+                Answer::find($data->id)->delete();
+            }
             $datasoal->delete();
-            return redirect()->back()->with('success','Data berhasil dihapus');
+            alert()->success('Sukses','Data berhasil disimpan');
+            return redirect()->back();
         }catch(Exception $e){
-            return redirect()->back()->with('danger','Data gagal dihapus');
+            alert()->warning('Maaf','Data gagal dihapus');
+            return redirect()->back();
         }
     }
 }

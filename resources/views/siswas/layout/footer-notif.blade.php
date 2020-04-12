@@ -1,41 +1,24 @@
 <div class="noti-wrap">
   <div class="noti__item clearfix js-item-menu">
-    <i class="zmdi zmdi-notifications"></i>
-    <span class="quantity">1</span>
+    <i class="zmdi zmdi-notifications" id="quantity_notif"></i>
+    @if(App\Notifikasi::where([['id_user',Auth::User()->id],['status',0]])->get()->count() > 0)
+    <span class="quantity" id="quantity_notif" id="notif">{{App\Notifikasi::where([['id_user',Auth::User()->id],['status',0]])->get()->count()}}</span>
+    @endif
     <div class="mess-dropdown js-dropdown">
       <div class="notifi__title">
-        <p>You have 3 Notifications</p>
+        <p>Kamu Memilliki {{App\Notifikasi::where('id_user',Auth::User()->id)->get()->count()}} Notifikasi</p>
       </div>
+      @foreach(App\Notifikasi::where('id_user',Auth::User()->id)->orderBy('id','DESC')->get() as $data)
       <div class="notifi__item">
-        <div class="bg-c1 img-cir img-40">
-          <i class="zmdi zmdi-email-open"></i>
+        <div id="notif_h" class="bg-c2 img-cir img-40">
+          <i class="zmdi zmdi-delete" onclick="window.location.href='{{URL::to('siswa/notif/'.$data->id.'/delete')}}'"></i>
         </div>
-        <div class="content">
-          <p>You got a email notification</p>
-          <span class="date">April 12, 2018 06:50</span>
-        </div>
-      </div>
-      <div class="notifi__item">
-        <div class="bg-c2 img-cir img-40">
-          <i class="zmdi zmdi-account-box"></i>
-        </div>
-        <div class="content">
-          <p>Your account has been blocked</p>
-          <span class="date">April 12, 2018 06:50</span>
+        <div class="content" onclick="window.location.href='{{URL::to($data->url)}}'">
+          <p>{{$data->judul_notifikasi}}</p>
+          <span class="date">{{$data->isi_notifikasi}} {{$data->created_at}}</span>
         </div>
       </div>
-      <div class="notifi__item">
-        <div class="bg-c3 img-cir img-40">
-          <i class="zmdi zmdi-file-text"></i>
-        </div>
-        <div class="content">
-          <p>You got a new file</p>
-          <span class="date">April 12, 2018 06:50</span>
-        </div>
-      </div>
-      <div class="notifi__footer">
-        <a href="#">All notifications</a>
-      </div>
+      @endforeach
     </div>
   </div>
 </div>

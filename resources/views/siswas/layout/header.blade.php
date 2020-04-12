@@ -4,9 +4,9 @@
     <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="au theme template">
-    <meta name="author" content="Hau Nguyen">
-    <meta name="keywords" content="au theme template">
+    <meta name="description" content="SI Ekskul">
+    <meta name="author" content="Al Azim">
+    <meta name="keywords" content="sistem informasi ekstrakulikuler smk negeri 2 kecamatan guguak">
 
     <!-- Title Page-->
     <title>@yield('judul-page') - ACC Siswa</title>
@@ -33,6 +33,7 @@
 
     <!-- Main CSS-->
     <link href="{{asset('admin/css/theme.css')}}" rel="stylesheet" media="all">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     @yield('head')
 </head>
@@ -69,8 +70,7 @@
         @include('siswas.layout.sidebar')
         @include('siswas.layout.footer')
     </div>
-
-    <!-- Jquery JS-->
+    
     <script src="{{asset('admin/vendor/jquery-3.2.1.min.js')}}"></script>
     <!-- Bootstrap JS-->
     <script src="{{asset('admin/vendor/bootstrap-4.1/popper.min.js')}}"></script>
@@ -90,5 +90,19 @@
     <!-- Main JS-->
     <script src="{{asset('admin/js/main.js')}}"></script>
     @yield('script')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#quantity_notif').click(function(){
+                $.ajax({
+                    url: '{{URL::to("siswa/clear-notif")}}',
+                    type: 'get',
+                    success: function(response){
+                        $('.quantity').hide();
+                        console.log('berhasil diperbaharui');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

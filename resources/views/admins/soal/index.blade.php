@@ -8,6 +8,9 @@
 @section('head')
 <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 @endsection
 @section('modal')
 <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
@@ -65,7 +68,8 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="mediumModalShareAbsen" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+@foreach($soal as $data)
+<div class="modal fade" id="mediumModal{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -80,9 +84,15 @@
                         <div class="card-body card-block">
                             <div class="col col-md-12" align="center">
                                 <p>Note: Ketuk Code QR untuk men-download gambar</p>
-                                <a target="_blank" href="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(1000)->generate(URL::to('/'))) !!} "  download="Soal">
-                                    <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(300)->generate(URL::to('/'))) !!} " class="center">
+                                <a target="_blank" href="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(1000)->generate(URL::to('siswa/'.$data->id.'/soal/'.$data->judul_soal))) !!} "  download="Soal">
+                                    <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(300)->generate(URL::to('siswa/'.$data->id.'/soal/'.$data->judul_soal))) !!} " class="center">
                                 </a>
+                            </div>
+                            <div class="col col-md-12" align="center">
+                                <input type="text" class="form-control col-md-9" id="myInput{{$data->id}}" value="{{URL::to('siswa/'.$data->id.'/soal/'.$data->judul_soal)}}" readonly>
+                            </div>
+                            <div class="col col-md-12" align="center">
+                                <button class="btn btn-primary col-md-3" onclick="copyFunction({{$data->id}})">Copy</button>
                             </div>
                         </div>
                     </div>
@@ -91,6 +101,7 @@
         </div>
     </div>
 </div>
+@endforeach
 @endsection
 
 @section('content')
@@ -133,5 +144,28 @@
              ],
     })
   })
+    function adminDelete() {
+        var postId = $(event.currentTarget).data('admin');
+        swal({
+            title: "yakin untuk menghapus data ini?",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonClass: 'btn-danger waves-effect waves-light',
+            confirmButtonText: "Hapus",
+            cancelButtonText: "Tidak",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(){
+            window.location.href = postId;
+        });
+    }
+    function copyFunction($e){
+        console.log("halo"+$e);
+        var copyText = document.getElementById("myInput"+$e);
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+    }
 </script>
 @endsection

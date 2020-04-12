@@ -20,7 +20,7 @@
 </li>
 <li class="nav-item {{ Route::currentRouteName() == 'admin-home-home' ? 'active':'' }}">
     <a href="{{route('admin-home-home')}}"  class="nav-link">
-        <i class="fas fa-cogs"></i>Home Settings</a>
+        <i class="fas fa-cogs"></i>Index Settings</a>
 </li>
 <li class="nav-item {{ Route::currentRouteName() == 'admin-blog-home' ? 'active':'' }}">
     <a href="{{route('admin-blog-home')}}"  class="nav-link">

@@ -4,6 +4,7 @@
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
 //Free User
 Route::get('/', function(){
     return redirect()->route('home');
@@ -14,6 +15,7 @@ Route::group(['prefix' => 'home'], function () {
     Route::get('/blog/{id}/{judul_blog}/data', 'HomeController@blog_detail');
     Route::get('/events', 'HomeController@events')->name('events');
 });
+
 //Admin
 Route::group(['prefix' => 'tutor','as'=>'admin-','middleware'=>'checkuser:2'], function () {
     Route::get('/', 'Admin\HomeController@index')->name('home');
@@ -40,10 +42,13 @@ Route::group(['prefix' => 'tutor','as'=>'admin-','middleware'=>'checkuser:2'], f
         Route::get('/siswa/{id}/{nama_lengkap}/edit', 'Admin\UsersController@edit_siswa');
         Route::post('/siswa/{id}/{nama_lengkap}/update', 'Admin\UsersController@update_siswa');
         Route::get('/siswa/{id}/{nama_lengkap}/hapus', 'Admin\UsersController@destroy_siswa');
+
+        Route::post('/download-data-siswa', 'Admin\UsersController@download_datasiswa')->name('siswa-download');
     });
     Route::group(['prefix' => 'absensi','as'=>'absensi-'], function () {
         Route::get('/', 'Admin\AbsensiController@index')->name('home');
         Route::post('/store', 'Admin\AbsensiController@store')->name('store');
+        Route::post('/download', 'Admin\AbsensiController@download_dataabsen')->name('download');
         Route::get('/{id}/{materi_pembelajaran}/hapus', 'Admin\AbsensiController@destroy');
         Route::get('/detail/{id}/{materi_pembelajaran}/detail', 'Admin\AbsensiController@detail');
         Route::get('/detail/get-data-detail/{id}/{materi_pembelajaran}/detail', 'Admin\AbsensiController@data_detail')->name('detail');
@@ -57,10 +62,17 @@ Route::group(['prefix' => 'tutor','as'=>'admin-','middleware'=>'checkuser:2'], f
         Route::get('/{id}/{judul_soal}/hapus', 'Admin\SoalController@destroy');
         Route::get('/{id}/{judul_soal}/data', 'Admin\SoalController@data_soal');
         Route::post('/{id}/{judul_soal}/data/store', 'Admin\SoalController@data_store')->name('data-store');
-        Route::get('/{id}/{judul_soal}/data/{id_datasoal}/{soal}/hapus', 'Admin\SoalController@data_hapus');
+        Route::get('/{id}/{judul_soal}/data/{id_datasoal}/hapus', 'Admin\SoalController@data_hapus');
     });
     Route::group(['prefix' => 'nilai', 'as' => 'nilai-'], function(){
         Route::get('/', 'Admin\NilaiController@index')->name('home');
+        Route::get('/{id}/detail-nilai/{judul_soal}/{id_user}/{name}', 'Admin\NilaiController@detail_nilai');
+    });
+    Route::group(['prefix' => 'jawaban', 'as' => 'jawaban-'], function(){
+        Route::get('/', 'Admin\AnswerController@index')->name('home');
+        Route::get('/{id}/user/{judul_soal}', 'Admin\AnswerController@user_jawaban');
+        Route::get('/{id}/user/{judul_soal}/{id_user}/{name}/periksa-jawaban', 'Admin\AnswerController@periksa_jawaban');
+        Route::post('/periksa-jawaban/store', 'Admin\AnswerController@store')->name('store');
     });
     Route::group(['prefix' => 'blog', 'as' => 'blog-'], function(){
         Route::get('/', 'Admin\BlogController@index')->name('home');
@@ -81,7 +93,13 @@ Route::group(['prefix' => 'tutor','as'=>'admin-','middleware'=>'checkuser:2'], f
 //Siswa
 Route::group(['prefix' => 'siswa','as'=>'siswa-','middleware'=>['checkuserreturnlogin:0','checkstatussoal']], function(){
     Route::get('/', 'Siswa\ProfileController@index')->name('profile');
+    Route::get('/notif/{id}/delete', 'Siswa\ProfileController@hapus_notifikasi');
+    Route::get('/clear-notif', 'Siswa\ProfileController@clear_notifikasi');
     Route::get('/absensi-nilai', 'Siswa\AbsensiController@index')->name('absensi-nilai');
+    Route::get('/absensi-nilai/{id}/detail-nilai/{judul_soal}/{id_user}/{name}', 'Siswa\AbsensiController@detail_nilai');
+
     Route::get('/absensi/materi-pembelajaran/{id}/{data}', 'Siswa\AbsensiController@absen');
 });
 Route::get('siswa/{id}/soal/{data}', 'Siswa\SoalController@index')->name('siswa-soal');
+Route::post('siswa/soal/answer/{id}/answer/{jawaban}', 'Siswa\AnswerController@jawab');
+Route::get('siswa/soal/selesaikan', 'Siswa\AnswerController@selesaikan')->name('selesaikan-test');

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNilaisTable extends Migration
+class CreateNotifikasisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateNilaisTable extends Migration
      */
     public function up()
     {
-        Schema::create('nilais', function (Blueprint $table) {
+        Schema::create('notifikasis', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('id_soal');
-            $table->integer('persentasi');
+            $table->string('judul_notifikasi')->nullable();
+            $table->text('isi_notifikasi')->nullable();
+            $table->string('url')->nullable();
+            $table->integer('id_user');
+            $table->integer('status');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class CreateNilaisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nilais');
+        Schema::dropIfExists('notifikasis');
     }
 }

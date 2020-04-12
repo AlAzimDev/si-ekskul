@@ -50,6 +50,7 @@
                                     </div>
                                     <div class="col-12 col-md-9">
                                         <input type="password" id="hf-password" name="password" placeholder="Masukkan Password..." required="" class="form-control">
+                                        <input type="checkbox" onclick="showHide()"> Show Password
                                     </div>
                                 </div>
                             </form>
@@ -83,7 +84,7 @@
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Password</th>
-                    <th>Action</th>
+                    <th style="text-align: right">Action</th>
                 </tr>
                 </thead>
             </table>
@@ -106,7 +107,7 @@
                     { data: 'name', name: 'name' },
                     { data: 'email', name: 'email' },
                     { data: 'password2', name: 'password2' },
-                    { data: 'action', orderable: false, searchable: true }
+                    { data: 'action', orderable: false, searchable: true, className: 'dt-body-right' }
                 ],
         })
     });
@@ -125,6 +126,14 @@
         function(){
             window.location.href = postId;
         });
+    }
+    function showHide(){
+        var x = document.getElementById('hf-password');
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
     }
 </script>
 @endsection

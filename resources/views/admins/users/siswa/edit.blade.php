@@ -18,14 +18,6 @@
                                 @csrf
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="hf-name" class=" form-control-label">Username</label>
-                                    </div>
-                                    <div class="col-12 col-md-9">
-                                        <input type="text" id="hf-name" name="name" value="{{$user->name}}" placeholder="Masukkan Username..." required="" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col col-md-3">
                                         <label for="hf-email" class=" form-control-label">Email</label>
                                     </div>
                                     <div class="col-12 col-md-9">
@@ -38,6 +30,7 @@
                                     </div>
                                     <div class="col-12 col-md-9">
                                         <input type="password" id="hf-password" name="password" value="{{$user->password2}}" placeholder="Masukkan Password..." required="" class="form-control">
+                                        <input type="checkbox" onclick="showHide()"> Show Password
                                     </div>
                                 </div>
                                 <div class="row form-group">
@@ -50,6 +43,14 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
+                                        <label for="hf-nama-panggilan" class=" form-control-label">Nama Panggilan</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input type="text" id="hf-nama-panggilan" name="nama_panggilan" value="{{$datasiswa->nama_panggilan}}" placeholder="Masukkan Nama Panggilan..." required="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
                                         <label for="hf-jenis-kelamin" class=" form-control-label">Jenis Kelamin</label>
                                     </div>
                                     <div class="col-12 col-md-9">
@@ -57,14 +58,6 @@
                                             <option value="ll" {{$datasiswa->jenis_kelamin == 'll' ? 'selected':''}}>Laki-Laki</option>
                                             <option value="p" {{$datasiswa->jenis_kelamin == 'p' ? 'selected':''}}>Perempuan</option>
                                         </select>
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col col-md-3">
-                                        <label for="hf-nama-panggilan" class=" form-control-label">Nama Panggilan</label>
-                                    </div>
-                                    <div class="col-12 col-md-9">
-                                        <input type="text" id="hf-nama-panggilan" name="nama_panggilan" value="{{$datasiswa->nama_panggilan}}" placeholder="Masukkan Nama Panggilan..." required="" class="form-control">
                                     </div>
                                 </div>
                                 <div class="row form-group">
@@ -88,7 +81,7 @@
                                         <label for="hf-alamat" class=" form-control-label">Alamat</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <textarea id="hf-alamat" name="alamat" value="{{$datasiswa->alamat}}" placeholder="Masukkan Alamat..." class="form-control"></textarea>
+                                        <textarea id="hf-alamat" name="alamat" placeholder="Masukkan Alamat..." class="form-control">{{$datasiswa->alamat}}</textarea>
                                     </div>
                                 </div>
                                 <div class="row form-group">
@@ -96,7 +89,12 @@
                                         <label for="hf-handphone" class=" form-control-label">No. Handphone</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input type="text" id="hf-handphone" name="handphone" value="{{$datasiswa->handphone}}" placeholder="Masukkan No. Handphone..." class="form-control">
+                                        <input type="number" id="hf-handphone" name="handphone" value="{{$datasiswa->handphone}}" placeholder="Masukkan No. Handphone..." class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-12">
+                                        <label for="hf-handphone" class=" form-control-label">*Note: Masukkan No. Handphone dimulai dari angka 08xx</label>
                                     </div>
                                 </div>
                             </form>
@@ -114,4 +112,17 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+<script>
+    function showHide(){
+        var x = document.getElementById('hf-password');
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
 @endsection

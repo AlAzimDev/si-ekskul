@@ -4,15 +4,105 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Alert;
+use App\Answer;
 use App\Blog;
+use App\DataSoal;
 use App\Home;
-use RealRashid\SweetAlert\Facades\Alert;
+use App\Soal;
+use App\User;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('admins.index');
+        $timeNow    = Carbon::now();
+        $nama_bulans = [];
+        $bulans = [];
+        $tahuns = [];
+        for ($i=0; $i < 6 ; $i++) {
+            if($timeNow->format('m') < ($i+1)){
+                $bulans[] = (12 + ($timeNow->format('m') - $i));
+                $tahuns[] = $timeNow->format('Y') - 1;
+            }else{
+                $bulans[] = $timeNow->format('m') - $i;
+                $tahuns[] = $timeNow->format('Y') + 0;
+            }
+        }
+        $jumlah_users = [];
+        for ($i=0; $i < count($bulans) ; $i++) { 
+            $jumlah_users[] = User::whereMonth('created_at',$bulans[$i])->whereYear('created_at',$tahuns[$i])->get()->count();
+        }
+        $jumlah_useradmin = [];
+        for ($i=0; $i < count($bulans) ; $i++) { 
+            $jumlah_useradmin[] = User::where('role',2)->whereMonth('created_at',$bulans[$i])->whereYear('created_at',$tahuns[$i])->get()->count();
+        }
+        $jumlah_userpetugas = [];
+        for ($i=0; $i < count($bulans) ; $i++) { 
+            $jumlah_userpetugas[] = User::where('role',1)->whereMonth('created_at',$bulans[$i])->whereYear('created_at',$tahuns[$i])->get()->count();
+        }
+        $jumlah_usersiswa = [];
+        for ($i=0; $i < count($bulans) ; $i++) { 
+            $jumlah_usersiswa[] = User::where('role',0)->whereMonth('created_at',$bulans[$i])->whereYear('created_at',$tahuns[$i])->get()->count();
+        }
+        for ($i=0; $i < count($bulans) ; $i++) { 
+            if($bulans[$i] == 1){
+                $nama_bulans[] = "Januari";
+            }else if($bulans[$i] == 2){
+                $nama_bulans[] = "Februari";
+            }else if($bulans[$i] == 3){
+                $nama_bulans[] = "Maret";
+            }else if($bulans[$i] == 4){
+                $nama_bulans[] = "April";
+            }else if($bulans[$i] == 5){
+                $nama_bulans[] = "Mei";
+            }else if($bulans[$i] == 6){
+                $nama_bulans[] = "Juni";
+            }else if($bulans[$i] == 7){
+                $nama_bulans[] = "Juli";
+            }else if($bulans[$i] == 8){
+                $nama_bulans[] = "Agustus";
+            }else if($bulans[$i] == 9){
+                $nama_bulans[] = "September";
+            }else if($bulans[$i] == 10){
+                $nama_bulans[] = "Oktober";
+            }else if($bulans[$i] == 11){
+                $nama_bulans[] = "November";
+            }else if($bulans[$i] == 12){
+                $nama_bulans[] = "Desember";
+            }
+        }
+
+        //user
+        $users = User::pluck('created_at');
+        //Answer
+            //id_datasoal yang ada di answer
+        $id_datasoalsNULL = Answer::where('persentasi',NULL)->pluck('id_datasoal')->toArray();
+        $id_datasoalsNOTNULL = Answer::whereNotNull('persentasi')->pluck('id_datasoal')->toArray();
+        
+            //id_soal yang ada di answer
+        $id_soalsNULL = DataSoal::whereIn('id',$id_datasoalsNULL)->pluck('id_soal')->toArray();
+        $id_soalsNOTNULL = DataSoal::whereIn('id',$id_datasoalsNOTNULL)->pluck('id_soal')->toArray();
+            
+            //id_user yang ada di answer
+        $id_usersNULL = Answer::where('persentasi',NULL)->pluck('id_user')->toArray();
+        $id_usersNOTNULL = Answer::whereNotNull('persentasi')->pluck('id_user')->toArray();
+
+            //foreach
+        $nilai_NULL = 0;
+        $nilai_NOTNULL = 0;
+        foreach (Soal::whereIn('id',$id_soalsNULL)->get() as $data) {
+            foreach (User::whereIn('id',$id_usersNULL)->get() as $user) {
+                $nilai_NULL++;
+            }
+        }
+        foreach (Soal::whereIn('id',$id_soalsNOTNULL)->get() as $data) {
+            foreach (User::whereIn('id',$id_usersNOTNULL)->get() as $user) {
+                $nilai_NOTNULL++;
+            }
+        }
+        return view('admins.index', compact('users','jumlah_users','jumlah_useradmin','jumlah_userpetugas','jumlah_usersiswa','nama_bulans','nilai_NULL','nilai_NOTNULL'));
     }
     public function home()
     {
