@@ -2,7 +2,7 @@
 <aside class="menu-sidebar d-none d-lg-block">
     <div class="logo">
         <a href="{{route('home')}}">
-            <img src="{{asset('admin/images/icon/logo.png')}}" alt="Cool Admin" />
+            <img src="{{asset('admin/images/icon/logo-polos.png')}}" alt="ACC" />
         </a>
     </div>
     <div class="menu-sidebar__content js-scrollbar1">

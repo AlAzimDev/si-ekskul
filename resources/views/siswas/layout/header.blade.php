@@ -46,7 +46,7 @@
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
                         <a class="logo" href="{{route('home')}}">
-                            <img src="{{asset('admin/images/icon/logo.png')}}" alt="CoolAdmin" />
+                            <img src="{{asset('admin/images/icon/logo-polos.png')}}" alt="ACC" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
