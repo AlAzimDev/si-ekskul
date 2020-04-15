@@ -52,19 +52,6 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                    </div>
-                                    <div class="col col-md-9">
-                                        <div class="form-check">
-                                            <div class="checkbox">
-                                                <label for="checkbox1" class="form-check-label ">
-                                                    <input type="checkbox" id="checkbox1" name="mode" value="password" class="form-check-input"> Tampilkan Kolom Password
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col col-md-3">
                                         <label for="hf-email" class=" form-control-label">Extension</label>
                                     </div>
                                     <div class="col-12 col-md-9">
