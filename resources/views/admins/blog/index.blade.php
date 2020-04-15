@@ -35,6 +35,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
   </head>
   <body>
+   @include('sweetalert::alert')
     
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
@@ -116,7 +117,7 @@
             <div class="col-md-8 ftco-animate text-center">
                 <p class="breadcrumbs"><span class="mr-2"><a href="{{route('admin-home')}}">Home</a></span> <span>Blog</span></p>
                 <a href="javascript:void(0)" data-toggle="modal" data-target="#mediumModal">
-                    <i class="icon-add"></i><h1 class="mb-3 bread">Add Blog</h1>
+                    <i class="icon-add"></i><h1 class="mb-3 bread">Tambahkan Blog Baru</h1>
                 </a>
             </div>
         </div>

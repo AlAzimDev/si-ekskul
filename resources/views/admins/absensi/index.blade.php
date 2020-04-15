@@ -3,9 +3,9 @@
 @section('judul-page','Data Absensi')
 @section('button')
 <button type="button" class="au-btn au-btn-icon au-btn--green" data-toggle="modal" data-target="#mediumModal1">
-    <i class="zmdi zmdi-download"></i>download data absensi</button>
+    <i class="zmdi zmdi-download"></i>export data absensi</button>
 <button type="button" class="au-btn au-btn-icon au-btn--blue" data-toggle="modal" data-target="#mediumModal">
-    <i class="zmdi zmdi-plus"></i>add data</button>
+    <i class="zmdi zmdi-plus"></i>tambahkan data</button>
 @endsection
 @section('head')
 <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
@@ -91,7 +91,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="card-header col-md-11"><strong>Download Data Absensi</strong> Form</div>
+                <div class="card-header col-md-11"><strong>Export Data Absensi</strong> Form</div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -161,9 +161,6 @@
             <div class="modal-footer">
                 <button form="form2" type="submit" class="btn btn-primary btn-sm">
                     <i class="fa fa-dot-circle-o"></i> Submit
-                </button>
-                <button form="form2" type="reset" class="btn btn-danger btn-sm">
-                    <i class="fa fa-ban"></i> Reset
                 </button>
             </div>
         </div>

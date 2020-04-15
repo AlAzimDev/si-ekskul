@@ -3,7 +3,7 @@
 @section('judul-page','Data Admin')
 @section('button')
 <button type="button" class="au-btn au-btn-icon au-btn--blue" data-toggle="modal" data-target="#mediumModal">
-    <i class="zmdi zmdi-plus"></i>add data</button>
+    <i class="zmdi zmdi-plus"></i>tambahkan data</button>
 @endsection
 @section('head')
 <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -84,7 +84,7 @@
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Password</th>
-                    <th style="text-align: right">Action</th>
+                    <th style="text-align: right">Tindakan</th>
                 </tr>
                 </thead>
             </table>
@@ -109,6 +109,28 @@
                     { data: 'password2', name: 'password2' },
                     { data: 'action', orderable: false, searchable: true, className: 'dt-body-right' }
                 ],
+        "language": {
+            "lengthMenu": "Menampilkan _MENU_ records per halaman",
+            "zeroRecords": "Tidak menemukan data apapun - maaf",
+            "info": "Menampilkan _PAGE_ dari _PAGES_ halaman",
+            "infoEmpty": "Tidak menemukan data apapun",
+            "infoFiltered": "(difilter dari _MAX_ total records)",
+            "infoPostFix":    "",
+            "thousands":      ",",
+            "loadingRecords": "Memuat...",
+            "processing":     "Proses...",
+            "search":         "Cari:",
+            "paginate": {
+                "first":      "Pertama",
+                "last":       "Terakhir",
+                "next":       "Selanjutnya",
+                "previous":   "Sebelumnya"
+            },
+            "aria": {
+                "sortAscending":  ": aktifkan untuk mengurutkan kolom naik",
+                "sortDescending": ": aktifkan untuk mengurutkan kolom turun"
+            }
+        }
         })
     });
     function adminDelete() {

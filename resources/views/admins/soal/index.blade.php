@@ -3,7 +3,7 @@
 @section('judul-page','Soal')
 @section('button')
 <button type="button" class="au-btn au-btn-icon au-btn--blue" data-toggle="modal" data-target="#mediumModal">
-    <i class="zmdi zmdi-plus"></i>add data</button>
+    <i class="zmdi zmdi-plus"></i>tambahkan data</button>
 @endsection
 @section('head')
 <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -73,7 +73,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <p>Share Absensi</p>
+                <p>Bagikan Absensi</p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -92,7 +92,7 @@
                                 <input type="text" class="form-control col-md-9" id="myInput{{$data->id}}" value="{{URL::to('siswa/'.$data->id.'/soal/'.$data->judul_soal)}}" readonly>
                             </div>
                             <div class="col col-md-12" align="center">
-                                <button class="btn btn-primary col-md-3" onclick="copyFunction({{$data->id}})">Copy</button>
+                                <button class="btn btn-primary col-md-3" onclick="copyFunction({{$data->id}})">Salin</button>
                             </div>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                     <th>Judul Soal</th>
                     <th>Waktu Mulai</th>
                     <th>Waktu Berhenti</th>
-                    <th style="text-align: right">Action</th>
+                    <th style="text-align: right">Tindakan</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -142,6 +142,28 @@
                 { data: 'waktu_berhenti', name: 'waktu_berhenti' },
                 { data: 'action', className: 'dt-right', orderable: false, searchable: true }
              ],
+    "language": {
+        "lengthMenu": "Menampilkan _MENU_ records per halaman",
+        "zeroRecords": "Tidak menemukan data apapun - maaf",
+        "info": "Menampilkan _PAGE_ dari _PAGES_ halaman",
+        "infoEmpty": "Tidak menemukan data apapun",
+        "infoFiltered": "(difilter dari _MAX_ total records)",
+        "infoPostFix":    "",
+        "thousands":      ",",
+        "loadingRecords": "Memuat...",
+        "processing":     "Proses...",
+        "search":         "Cari:",
+        "paginate": {
+            "first":      "Pertama",
+            "last":       "Terakhir",
+            "next":       "Selanjutnya",
+            "previous":   "Sebelumnya"
+        },
+        "aria": {
+            "sortAscending":  ": aktifkan untuk mengurutkan kolom naik",
+            "sortDescending": ": aktifkan untuk mengurutkan kolom turun"
+        }
+    }
     })
   })
     function adminDelete() {

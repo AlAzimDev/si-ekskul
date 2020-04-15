@@ -1,6 +1,6 @@
 @extends('admins.layout.header')
 
-@section('judul-page','Data User')
+@section('judul-page','Data Pengguna')
 
 @section('content')
 <div class="email__item" style="cursor: pointer" onclick="window.location.href='{{route('admin-users-admin')}}'">

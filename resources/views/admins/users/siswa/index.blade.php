@@ -3,9 +3,11 @@
 @section('judul-page','Data Siswa')
 @section('button')
 <button type="button" class="au-btn au-btn-icon au-btn--green" data-toggle="modal" data-target="#mediumModal1">
-    <i class="zmdi zmdi-download"></i>download data siswa</button>
+    <i class="zmdi zmdi-download"></i>export data siswa</button>
+<button type="button" class="au-btn au-btn-icon" data-toggle="modal" data-target="#mediumModal2" style="background-color: orange">
+    <i class="zmdi zmdi-download"></i>import data siswa</button>
 <button type="button" class="au-btn au-btn-icon au-btn--blue" data-toggle="modal" data-target="#mediumModal">
-    <i class="zmdi zmdi-plus"></i>add data</button>
+    <i class="zmdi zmdi-plus"></i>tambahkan data</button>
 @endsection
 @section('head')
 <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -132,7 +134,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="card-header col-md-11"><strong>Download Data Siswa</strong> Form</div>
+                <div class="card-header col-md-11"><strong>Export Data Siswa</strong> Form</div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -198,7 +200,53 @@
                 <button form="form2" type="submit" class="btn btn-primary btn-sm">
                     <i class="fa fa-dot-circle-o"></i> Submit
                 </button>
-                <button form="form2" type="reset" class="btn btn-danger btn-sm">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="mediumModal2" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="card-header col-md-11"><strong>Import Data Siswa</strong> Form</div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body card-block">
+                            <form method="post" id="form3" class="form-horizontal" action="{{route('admin-users-siswa-import')}}" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row form-group">
+                                    <div class="col col-md-12">
+                                        <label for="hf-email center" class=" form-control-label">*Note: Import hanya bisa dilakukan jika colum sesui dengan gambar di bawah ini.</label>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-12">
+                                        <img src="{{asset('image/home/import_ex.png')}}" alt="Import Example">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="hf-email" class=" form-control-label">File</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input type="file" name="import_file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button form="form3" type="submit" class="btn btn-primary btn-sm">
+                    <i class="fa fa-dot-circle-o"></i> Submit
+                </button>
+                <button form="form3" type="reset" class="btn btn-danger btn-sm">
                     <i class="fa fa-ban"></i> Reset
                 </button>
             </div>
@@ -226,7 +274,7 @@
                             <th>Tempat & Tanggal Lahir</th>
                             <th>Alamat</th>
                             <th>Handphone</th>
-                            <th style="text-align: right">Action</th>
+                            <th style="text-align: right">Tindakan</th>
                         </tr>
                         </thead>
                     </table>
@@ -265,6 +313,28 @@
                 { data: 'handphone', name: 'handphone' },
                 { data: 'action', orderable: false, searchable: true, className: 'dt-body-right' }
              ],
+    "language": {
+        "lengthMenu": "Menampilkan _MENU_ records per halaman",
+        "zeroRecords": "Tidak menemukan data apapun - maaf",
+        "info": "Menampilkan _PAGE_ dari _PAGES_ halaman",
+        "infoEmpty": "Tidak menemukan data apapun",
+        "infoFiltered": "(difilter dari _MAX_ total records)",
+        "infoPostFix":    "",
+        "thousands":      ",",
+        "loadingRecords": "Memuat...",
+        "processing":     "Proses...",
+        "search":         "Cari:",
+        "paginate": {
+            "first":      "Pertama",
+            "last":       "Terakhir",
+            "next":       "Selanjutnya",
+            "previous":   "Sebelumnya"
+        },
+        "aria": {
+            "sortAscending":  ": aktifkan untuk mengurutkan kolom naik",
+            "sortDescending": ": aktifkan untuk mengurutkan kolom turun"
+        }
+    }
     })
   });
     function adminDelete() {

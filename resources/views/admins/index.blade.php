@@ -1,6 +1,6 @@
 @extends('admins.layout.header')
 
-@section('judul-page','Dashboard')
+@section('judul-page','Dasbor')
 
 @section('content')
 <div class="row m-t-25">
@@ -12,8 +12,8 @@
                         <i class="zmdi zmdi-account-o"></i>
                     </div>
                     <div class="text">
-                        <h2>{!!$users->count()!!}</h2>
-                        <span>Total User</span>
+                        <h2>{{$users->count()}}</h2>
+                        <span>Total Pengguna</span>
                     </div>
                 </div>
                 <div class="overview-chart">
@@ -30,8 +30,8 @@
                         <i class="zmdi zmdi-account-o"></i>
                     </div>
                     <div class="text">
-                        <h2>{!!$users->where('role',2)->count()!!}</h2>
-                        <span>User Admin</span>
+                        <h2>{{$role2}}</h2>
+                        <span>Pengguna Admin</span>
                     </div>
                 </div>
                 <div class="overview-chart">
@@ -48,8 +48,8 @@
                         <i class="zmdi zmdi-account-o"></i>
                     </div>
                     <div class="text">
-                        <h2>{!!$users->where('role',1)->count()!!}</h2>
-                        <span>User Petugas</span>
+                        <h2>{{$role1}}</h2>
+                        <span>Pengguna Petugas</span>
                     </div>
                 </div>
                 <div class="overview-chart">
@@ -66,8 +66,8 @@
                         <i class="zmdi zmdi-account-o"></i>
                     </div>
                     <div class="text">
-                        <h2>{!!$users->where('role',0)->count()!!}</h2>
-                        <span>User Siswa</span>
+                        <h2>{{$role0}}</h2>
+                        <span>Pengguna Siswa</span>
                     </div>
                 </div>
                 <div class="overview-chart">

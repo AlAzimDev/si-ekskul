@@ -29,6 +29,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   </head>
   <body>
+  @include('sweetalert::alert')
     
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">

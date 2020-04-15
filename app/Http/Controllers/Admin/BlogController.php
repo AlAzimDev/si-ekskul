@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Blog;
 use App\Home;
+use Alert;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,9 @@ class BlogController extends Controller
     }
     public function store(Request $request){
         try{
+            $request->validate([
+                'image' => 'image|mimes:jpeg,jpg',
+            ]);
             $blog               = new Blog();
             $blog->judul_blog   = $request->get('judul_blog');
             // dd($request->hasFile('image'));
@@ -32,8 +36,10 @@ class BlogController extends Controller
             }
             $blog->isi_blog     =$request->get('isi_blog');
             $blog->save();
+            alert()->success('Sukses','Data berhasil disimpan');
             return redirect()->back();
         }catch(Exception $e){
+            alert()->warning('Maaf','Data gagal disimpan');
             return redirect()->back();
         }
     }
@@ -45,8 +51,10 @@ class BlogController extends Controller
                 $blog->delete();
                 return redirect()->back();
             }
+            alert()->success('Sukses','Data berhasil dihapus');
             return redirect()->back();
         } catch (Exception $th) {
+            alert()->warning('Maaf','Data gagal dihapus');
             return redirect()->back();
         }
     }
@@ -64,7 +72,7 @@ class BlogController extends Controller
             }
             return abort(404);
         }catch(Exception $e){
-            return redirect()->back();
+            return abort(404);
         }
     }
 }

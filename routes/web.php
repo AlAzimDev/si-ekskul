@@ -44,6 +44,7 @@ Route::group(['prefix' => 'tutor','as'=>'admin-','middleware'=>'checkuser:2'], f
         Route::get('/siswa/{id}/{nama_lengkap}/hapus', 'Admin\UsersController@destroy_siswa');
 
         Route::post('/download-data-siswa', 'Admin\UsersController@download_datasiswa')->name('siswa-download');
+        Route::post('/download-data-import', 'Admin\UsersController@import')->name('siswa-import');
     });
     Route::group(['prefix' => 'absensi','as'=>'absensi-'], function () {
         Route::get('/', 'Admin\AbsensiController@index')->name('home');
@@ -66,6 +67,7 @@ Route::group(['prefix' => 'tutor','as'=>'admin-','middleware'=>'checkuser:2'], f
     });
     Route::group(['prefix' => 'nilai', 'as' => 'nilai-'], function(){
         Route::get('/', 'Admin\NilaiController@index')->name('home');
+        Route::get('/{id}/detail-nilai/{judul_soal}', 'Admin\NilaiController@nilai');
         Route::get('/{id}/detail-nilai/{judul_soal}/{id_user}/{name}', 'Admin\NilaiController@detail_nilai');
     });
     Route::group(['prefix' => 'jawaban', 'as' => 'jawaban-'], function(){
@@ -87,6 +89,44 @@ Route::group(['prefix' => 'tutor','as'=>'admin-','middleware'=>'checkuser:2'], f
         Route::post('/modal3', 'Admin\HomeController@modal3')->name('modal3');
         Route::post('/modal4', 'Admin\HomeController@modal4')->name('modal4');
         Route::post('/modal5', 'Admin\HomeController@modal5')->name('modal5');
+    });
+});
+
+//Petugas
+Route::group(['prefix' => 'operator','as'=>'operator-','middleware'=>'checkuser:1'], function () {
+    Route::get('/', 'Operator\HomeController@index')->name('home');
+    Route::get('/siswa', 'Operator\SiswasController@index_siswa')->name('siswa');
+    Route::get('/get-data-siswa', 'Operator\SiswasController@data_siswa')->name('siswa-data');
+    Route::post('/download-data-siswa', 'Operator\SiswasController@download_datasiswa')->name('siswa-download');
+    Route::group(['prefix' => 'absensi','as'=>'absensi-'], function () {
+        Route::get('/', 'Operator\AbsensiController@index')->name('home');
+        Route::post('/store', 'Operator\AbsensiController@store')->name('store');
+        Route::post('/download', 'Operator\AbsensiController@download_dataabsen')->name('download');
+        Route::get('/{id}/{materi_pembelajaran}/hapus', 'Operator\AbsensiController@destroy');
+        Route::get('/detail/{id}/{materi_pembelajaran}/detail', 'Operator\AbsensiController@detail');
+        Route::get('/detail/get-data-detail/{id}/{materi_pembelajaran}/detail', 'Operator\AbsensiController@data_detail')->name('detail');
+    });
+    Route::group(['prefix' => 'soal', 'as' => 'soal-'], function(){
+        Route::get('/', 'Operator\SoalController@index')->name('home');
+        Route::post('/store', 'Operator\SoalController@store')->name('store');
+        Route::get('/get-data', 'Operator\SoalController@data')->name('data');
+        Route::get('/{id}/{judul_soal}/edit', 'Operator\SoalController@edit');
+        Route::post('/{id}/{judul_soal}/update', 'Operator\SoalController@update');
+        Route::get('/{id}/{judul_soal}/hapus', 'Operator\SoalController@destroy');
+        Route::get('/{id}/{judul_soal}/data', 'Operator\SoalController@data_soal');
+        Route::post('/{id}/{judul_soal}/data/store', 'Operator\SoalController@data_store')->name('data-store');
+        Route::get('/{id}/{judul_soal}/data/{id_datasoal}/hapus', 'Operator\SoalController@data_hapus');
+    });
+    Route::group(['prefix' => 'nilai', 'as' => 'nilai-'], function(){
+        Route::get('/', 'Operator\NilaiController@index')->name('home');
+        Route::get('/{id}/detail-nilai/{judul_soal}', 'Operator\NilaiController@nilai');
+        Route::get('/{id}/detail-nilai/{judul_soal}/{id_user}/{name}', 'Operator\NilaiController@detail_nilai');
+    });
+    Route::group(['prefix' => 'jawaban', 'as' => 'jawaban-'], function(){
+        Route::get('/', 'Operator\AnswerController@index')->name('home');
+        Route::get('/{id}/user/{judul_soal}', 'Operator\AnswerController@user_jawaban');
+        Route::get('/{id}/user/{judul_soal}/{id_user}/{name}/periksa-jawaban', 'Operator\AnswerController@periksa_jawaban');
+        Route::post('/periksa-jawaban/store', 'Operator\AnswerController@store')->name('store');
     });
 });
 

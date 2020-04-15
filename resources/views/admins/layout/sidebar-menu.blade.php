@@ -1,10 +1,10 @@
 <li class="nav-item {{ Route::currentRouteName() == 'admin-home' ? 'active':'' }}">
     <a href="{{route('admin-home')}}"  class="nav-link">
-        <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+        <i class="fas fa-tachometer-alt"></i>Dasbor</a>
 </li>
 <li class="nav-item {{ Route::currentRouteName() == 'admin-users-home' ? 'active':'' }}">
     <a href="{{route('admin-users-home')}}"  class="nav-link">
-        <i class="fas fa-users"></i>Users</a>
+        <i class="fas fa-users"></i>Pengguna</a>
 </li>
 <li class="nav-item {{ Route::currentRouteName() == 'admin-absensi-home' ? 'active':'' }}">
     <a href="{{route('admin-absensi-home')}}"  class="nav-link">
@@ -20,7 +20,7 @@
 </li>
 <li class="nav-item {{ Route::currentRouteName() == 'admin-home-home' ? 'active':'' }}">
     <a href="{{route('admin-home-home')}}"  class="nav-link">
-        <i class="fas fa-cogs"></i>Index Settings</a>
+        <i class="fas fa-cogs"></i>Pengaturan Indeks</a>
 </li>
 <li class="nav-item {{ Route::currentRouteName() == 'admin-blog-home' ? 'active':'' }}">
     <a href="{{route('admin-blog-home')}}"  class="nav-link">

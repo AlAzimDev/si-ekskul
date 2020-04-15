@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="id, in">
+<html lang="id">
 <head>
     <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Sistem Informasi Ektrakurikuler ACC">
-    <meta name="author" content="Hau Nguyen">
+    <meta name="author" content="Azim">
     <meta name="keywords" content="Sistem Informasi Ektrakurikuler ACC">
 
     <!-- Title Page-->
@@ -46,7 +46,7 @@
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
                         <a class="logo" href="{{route('home')}}">
-                            <img src="{{asset('admin/images/icon/logo.png')}}" alt="CoolAdmin" />
+                            <img src="{{asset('admin/images/icon/logo.png')}}" alt="ACC" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">

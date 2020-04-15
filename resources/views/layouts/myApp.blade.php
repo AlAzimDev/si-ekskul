@@ -47,6 +47,8 @@
           @else
             @if(Auth::User()->role == 2)
               <li class="nav-item"><a href="{{route('admin-home')}}" class="nav-link">Admin Home</a></li>
+            @elseif(Auth::User()->role == 1)
+              <li class="nav-item"><a href="{{route('operator-home')}}" class="nav-link">Petugas Home</a></li>
             @elseif(Auth::User()->role == 0)
               <li class="nav-item"><a href="{{route('siswa-profile')}}" class="nav-link">Siswa Home</a></li>
             @endif

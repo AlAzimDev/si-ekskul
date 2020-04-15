@@ -1,6 +1,6 @@
 @extends('admins.layout.header')
 
-@section('judul-page','Detail Data Absensi')
+@section('judul-page','Detail Data Absensi - '.$materi_pembelajaran)
 @section('head')
 <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -15,6 +15,7 @@
                 <thead>
                 <tr>
                     <th>Nama</th>
+                    <th>Email</th>
                 </tr>
                 </thead>
             </table>
@@ -34,8 +35,31 @@
       ajax: '/tutor/absensi/detail/get-data-detail/{{$id}}/{{$materi_pembelajaran}}/detail',
       columns: [
                 { data: 'nama_user', name: 'nama_user' },
+                { data: 'email_user', name: 'email_user' },
                 // { data: 'action', orderable: false, searchable: true }
              ],
+    "language": {
+        "lengthMenu": "Menampilkan _MENU_ records per halaman",
+        "zeroRecords": "Tidak menemukan data apapun - maaf",
+        "info": "Menampilkan _PAGE_ dari _PAGES_ halaman",
+        "infoEmpty": "Tidak menemukan data apapun",
+        "infoFiltered": "(difilter dari _MAX_ total records)",
+        "infoPostFix":    "",
+        "thousands":      ",",
+        "loadingRecords": "Memuat...",
+        "processing":     "Proses...",
+        "search":         "Cari:",
+        "paginate": {
+            "first":      "Pertama",
+            "last":       "Terakhir",
+            "next":       "Selanjutnya",
+            "previous":   "Sebelumnya"
+        },
+        "aria": {
+            "sortAscending":  ": aktifkan untuk mengurutkan kolom naik",
+            "sortDescending": ": aktifkan untuk mengurutkan kolom turun"
+        }
+    }
     })
   })
 </script>

@@ -86,23 +86,30 @@ class HomeController extends Controller
         $id_soalsNOTNULL = DataSoal::whereIn('id',$id_datasoalsNOTNULL)->pluck('id_soal')->toArray();
             
             //id_user yang ada di answer
-        $id_usersNULL = Answer::where('persentasi',NULL)->pluck('id_user')->toArray();
-        $id_usersNOTNULL = Answer::whereNotNull('persentasi')->pluck('id_user')->toArray();
+        // $id_usersNULL = Answer::where('persentasi',NULL)->pluck('id_user')->toArray();
+        // $id_usersNOTNULL = Answer::whereNotNull('persentasi')->pluck('id_user')->toArray();
 
             //foreach
         $nilai_NULL = 0;
         $nilai_NOTNULL = 0;
         foreach (Soal::whereIn('id',$id_soalsNULL)->get() as $data) {
+            $id_datasoalsNULL = DataSoal::where('id_soal',$data->id)->pluck('id')->toArray();
+            $id_usersNULL = Answer::where('persentasi',NULL)->whereIn('id_datasoal',$id_datasoalsNULL)->pluck('id_user')->toArray();
             foreach (User::whereIn('id',$id_usersNULL)->get() as $user) {
                 $nilai_NULL++;
             }
         }
         foreach (Soal::whereIn('id',$id_soalsNOTNULL)->get() as $data) {
+            $id_datasoalsNOTNULL = DataSoal::where('id_soal',$data->id)->pluck('id')->toArray();
+            $id_usersNOTNULL = Answer::where('persentasi',"!=",NULL)->whereIn('id_datasoal',$id_datasoalsNOTNULL)->pluck('id_user')->toArray();
             foreach (User::whereIn('id',$id_usersNOTNULL)->get() as $user) {
                 $nilai_NOTNULL++;
             }
         }
-        return view('admins.index', compact('users','jumlah_users','jumlah_useradmin','jumlah_userpetugas','jumlah_usersiswa','nama_bulans','nilai_NULL','nilai_NOTNULL'));
+        $role0 = User::where('role',0)->count();
+        $role1 = User::where('role',1)->count();
+        $role2 = User::where('role',2)->count();
+        return view('admins.index', compact('users','jumlah_users','jumlah_useradmin','jumlah_userpetugas','jumlah_usersiswa','nama_bulans','nilai_NULL','nilai_NOTNULL','role0','role1','role2'));
     }
     public function home()
     {

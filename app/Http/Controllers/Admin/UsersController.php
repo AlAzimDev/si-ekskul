@@ -9,6 +9,8 @@ use App\Answer;
 use App\DataAbsen;
 use App\DataSiswa;
 use App\Exports\DataSiswasExport;
+use App\Imports\DataSiswasImport;
+use App\Imports\UsersImport;
 use App\User;
 use Carbon\Carbon;
 use Exception;
@@ -370,6 +372,23 @@ class UsersController extends Controller
             return Excel::download(new DataSiswasExport($request->get('format_waktu'),$request->get('mode'),$waktu), 'DataSiswa.'.$request->get('extension'));
         } catch (Exception $e){
             alert()->warning('Maaf','Data gagal didownload');
+            return redirect()->back();
+        }
+    }
+
+    //Import
+    public function import(Request $request){
+        try {
+            $request->validate([
+                'import_file' => 'required|mimes:xlsx,xls,csv'
+            ]);
+            Excel::import(new UsersImport, $request->file('import_file'));
+            // dd(User::where('email', 'raihanhisbullah030@gmail.com')->pluck('id')->first());
+            Excel::import(new DataSiswasImport, $request->file('import_file'));
+            alert()->success('Sukses','Data berhasil diimport');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            alert()->warning('Maaf','Data gagal diimport');
             return redirect()->back();
         }
     }

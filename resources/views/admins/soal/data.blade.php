@@ -11,7 +11,7 @@
 @endsection
 @section('button')
 <button type="button" class="au-btn au-btn-icon au-btn--blue" data-toggle="modal" data-target="#mediumModal">
-    <i class="zmdi zmdi-plus"></i>add data</button>
+    <i class="zmdi zmdi-plus"></i>tambahkan data</button>
 @endsection
 @section('modal')
 <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">

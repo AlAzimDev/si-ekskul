@@ -74,6 +74,8 @@ class AbsensiController extends Controller
             return DataTables::of($dataabsen)
                 ->addColumn('nama_user', function($dataabsen){
                     return $dataabsen->user->name;
+                })->addColumn('email_user', function($dataabsen){
+                    return $dataabsen->user->email;
                 })->make(true);
         }
     }

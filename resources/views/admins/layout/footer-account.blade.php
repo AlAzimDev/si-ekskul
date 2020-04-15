@@ -9,7 +9,7 @@
                 <span class="email">@if(Auth::User() != null){{ Auth::User()->email }}@else admin@example.com @endif</span>
             </div>
             <div class="account-dropdown__footer">
-                <a href="{{ route('logout') }}" form="form" class="nav-link" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="zmdi zmdi-power"></i>Logout</a>
+                <a href="{{ route('logout') }}" form="form" class="nav-link" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="zmdi zmdi-power"></i>Keluar</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
             </div>
         </div>
