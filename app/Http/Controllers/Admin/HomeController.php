@@ -130,6 +130,10 @@ class HomeController extends Controller
             $request->file('bg1_image')->move('image/home/', 'bg1-image.jpg');
         }
         Home::updateOrCreate(
+            ['jenis' => 'title'],
+            ['isi' => $request->get('title')]
+        );
+        Home::updateOrCreate(
             ['jenis' => 'judul-besar'],
             ['isi' => $request->get('judul_besar')]
         );

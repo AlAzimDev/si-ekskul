@@ -10,9 +10,9 @@ class CheckUserRole
     public function handle($request, Closure $next, $role)
     {
         if(!Auth::check()){
-            return abort(404);
+            return abort(403);
         }else if(Auth::User()->role != $role){
-            return abort(404);
+            return abort(403);
         }
         return $next($request);
     }

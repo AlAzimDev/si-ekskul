@@ -184,8 +184,8 @@
                 <tbody>
                 <p id="demo1">Absensi berlaku <span id="demo"></span> lagi</p>
                 @foreach($absensi as $data)
-                <tr onclick="window.location.href='absensi/detail/{{$data->id}}/{{$data->materi_pembelajaran}}/detail'">
-                    <td>{{$data->materi_pembelajaran}}</td>
+                <tr>
+                    <td onclick="window.location.href='absensi/detail/{{$data->id}}/{{$data->materi_pembelajaran}}/detail'">{{$data->materi_pembelajaran}}</td>
                     <td class="float-right">
                         @if($lastabsensi != null)
                         @if($data->id == $lastabsensi->id)

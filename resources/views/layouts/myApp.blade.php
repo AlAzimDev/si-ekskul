@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
   <head>
-    <title>@yield('judul-page')</title>
+    <title>@yield('judul-page') | @if($home->where('jenis','title')->first()){{$home->where('jenis','title')->first()->isi}}@else @if($home->where('jenis','title')->first()){{$home->where('jenis','title')->first()->isi}}@else SMKN 2 Guguak @endif @endif</title>
     <link rel="icon" href="{{asset('image/icon.jpg')}}" type="image/icon type"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -33,7 +33,7 @@
     
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-      <a class="navbar-brand" href="{{route('home')}}"><i class="flaticon-university"></i>SMK2GGK <br><small>Ekstrakulikuler</small></a>
+      <a class="navbar-brand" href="{{route('home')}}"><i class="flaticon-university"></i>@if($home->where('jenis','title')->first()){{$home->where('jenis','title')->first()->isi}}@else SMKN 2 Guguak @endif<br><small>Ekstrakulikuler</small></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="oi oi-menu"></span> Menu
       </button>
@@ -71,9 +71,9 @@
     	<div class="overlay"></div>
       <div class="container">
         <div class="row mb-5">
-          <div class="col-md-5">
+          <div class="col-md-7">
             <div class="ftco-footer-widget mb-4">
-              <h2><a class="navbar-brand" href="/home"><i class="flaticon-university"></i>SMK2GGK <br><small>Ekstrakulikuler</small></a></h2>
+              <h2><a class="navbar-brand" href="/home"><i class="flaticon-university"></i>@if($home->where('jenis','title')->first()){{$home->where('jenis','title')->first()->isi}}@else SMKN 2 Guguak @endif<br><small>Ekstrakulikuler</small></a></h2>
               @yield('button-tambahan')<p>@if($home->where('jenis','description2')->first()){{$home->where('jenis','description2')->first()->isi}}@else Deskripsi tentang webiste ini @endif</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 @if(($home->where('jenis','social-facebook')->first() != null)&&($home->where('jenis','social-facebook')->first()->isi != null))
@@ -88,7 +88,8 @@
               </ul>
             </div>
           </div>
-          <div class="col-md-7">
+          @if($random->count() > 0)
+          <div class="col-md-5">
             <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">Random Blog</h2>
               @foreach($random as $data)
@@ -97,18 +98,19 @@
                 <div class="text">
                   <h3 class="heading"><a href="{{URL::to('home/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data">{{$data->judul_blog}}</a></h3>
                   <div class="meta">
-                    <div><a href="{{URL::to('home/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data"><span class="icon-calendar"></span> {{$data->created_at}}</a></div>
+                    <div><a href="{{URL::to('home/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data"><span class="icon-calendar"></span> {{date('d M Y', strtotime($data->created_at))}}</a></div>
                   </div>
                 </div>
               </div>
               @endforeach
             </div>
           </div>
+          @endif
         </div>
         <div class="row">
           <div class="col-md-12 text-center">
 
-            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> by DonutTimAmpga | <a href="@if($home->where('jenis','footer-link')->first()){{$home->where('jenis','footer-link')->first()->isi}}@endif" target="_blank">@if($home->where('jenis','footer-judul')->first()){{$home->where('jenis','footer-judul')->first()->isi}}@else Masukkan Footer @endif</a> @yield('button-footer-tambahan')</p>
+            <p>Copyright &copy;2020 by Azim | <a href="@if($home->where('jenis','footer-link')->first()){{$home->where('jenis','footer-link')->first()->isi}}@endif" target="_blank">@if($home->where('jenis','footer-judul')->first()){{$home->where('jenis','footer-judul')->first()->isi}}@else Footer Link @endif</a> @yield('button-footer-tambahan')</p>
           </div>
         </div>
       </div>
@@ -133,6 +135,6 @@
   <script src="{{asset('genius/js/scrollax.min.js')}}"></script>
   <script src="{{asset('genius/js/google-map.js')}}"></script>
   <script src="{{asset('genius/js/main.js')}}"></script>
-    
+  @include('sweetalert::alert')
   </body>
 </html>

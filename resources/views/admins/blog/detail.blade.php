@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Blog - {{$data->judul_blog}}</title>
+    <title>{{$data->judul_blog}} - Blog | Admin</title>
     <link rel="icon" href="{{asset('image/icon.jpg')}}" type="image/icon type"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -125,7 +125,7 @@
                 <div class="text">
                   <h3 class="heading"><a href="{{URL::to('tutor/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data">{{$data->judul_blog}}</a></h3>
                   <div class="meta">
-                    <div><a href="{{URL::to('tutor/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data"><span class="icon-calendar"></span> {{$data->created_at}}</a></div>
+                    <div><a href="{{URL::to('tutor/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data"><span class="icon-calendar"></span> {{date('d M Y', strtotime($data->created_at))}}</a></div>
                   </div>
                 </div>
               </div>

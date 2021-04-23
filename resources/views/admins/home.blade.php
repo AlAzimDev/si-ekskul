@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Admin - Home Settings</title>
+    <title>Home Settings | Admin</title>
     <link rel="icon" href="{{asset('image/icon.jpg')}}" type="image/icon type" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -35,7 +35,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
-            <a class="navbar-brand" href="{{route('home')}}"><i class="flaticon-university"></i>SMK2GGK
+            <a class="navbar-brand" href="{{route('home')}}"><i class="flaticon-university"></i>@if($home->where('jenis','title')->first()){{$home->where('jenis','title')->first()->isi}}@else @if($home->where('jenis','title')->first()){{$home->where('jenis','title')->first()->isi}}@else SMKN 2 Guguak @endif @endif
                 <br><small>Ekstrakulikuler</small></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,11 +77,21 @@
                                     @csrf
                                     <div class="row form-group">
                                         <div class="col col-md-3">
-                                            <label for="hf-judul-besar" class=" form-control-label">Judul</label>
+                                            <label for="hf-title" class=" form-control-label">Judul Website</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input type="text" id="hf-title" name="title"
+                                                placeholder="Masukkan Judul Website..." required="" class="form-control"
+                                                value="@if($home->where('jenis','title')->first()){{$home->where('jenis','title')->first()->isi}}@endif">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="hf-judul-besar" class=" form-control-label">Judul Konten</label>
                                         </div>
                                         <div class="col-12 col-md-9">
                                             <input type="text" id="hf-judul-besar" name="judul_besar"
-                                                placeholder="Masukkan Judul..." required="" class="form-control"
+                                                placeholder="Masukkan Judul Konten..." required="" class="form-control"
                                                 value="@if($home->where('jenis','judul-besar')->first()){{$home->where('jenis','judul-besar')->first()->isi}}@endif">
                                         </div>
                                     </div>
@@ -490,7 +500,7 @@
                                 class="icon-edit"></i></button>@if($home->where('jenis','judul-menengah')->first()){{$home->where('jenis','judul-menengah')->first()->isi}}@else
                         Tentang Kami @endif <br />Tekan tombol di dibawah!</h2>
                     <div class="video d-flex justify-content-center">
-                        <iframe width="560" height="315" src="@if($home->where('jenis','link-video')->first()){{$home->where('jenis','link-video')->first()->isi}}@endif" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe width="100%" height="315" src="@if($home->where('jenis','link-video')->first()){{$home->where('jenis','link-video')->first()->isi}}@endif" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -504,7 +514,7 @@
             <div class="row mb-5">
                 <div class="col-md-5">
                     <div class="ftco-footer-widget mb-4">
-                        <h2><a class="navbar-brand" href="/home"><i class="flaticon-university"></i>SMK2GGK
+                        <h2><a class="navbar-brand" href="/home"><i class="flaticon-university"></i>@if($home->where('jenis','title')->first()){{$home->where('jenis','title')->first()->isi}}@else @if($home->where('jenis','title')->first()){{$home->where('jenis','title')->first()->isi}}@else SMKN 2 Guguak @endif @endif
                                 <br><small>Ekstrakulikuler</small></a></h2>
 
                         <button class="btn btn-light" data-toggle="modal" data-target="#modal4"><i
@@ -544,7 +554,7 @@
                                 </h3>
                                 <div class="meta">
                                     <div><a href="{{URL::to('tutor/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data"><span
-                                                class="icon-calendar"></span> {{$data->created_at}}</a></div>
+                                                class="icon-calendar"></span> {{date('d M Y', strtotime($data->created_at))}}</a></div>
                                 </div>
                             </div>
                         </div>
@@ -556,7 +566,7 @@
                 <div class="col-md-12 text-center">
 
                     <p>Copyright &copy;
-                        <script>document.write(new Date().getFullYear());</script> by DonutTimAmpga | <a
+                        <script>document.write(new Date().getFullYear());</script> by Azim | <a
                             href="@if($home->where('jenis','footer-link')->first()){{$home->where('jenis','footer-link')->first()->isi}}@endif"
                             target="_blank">@if($home->where('jenis','footer-judul')->first()){{$home->where('jenis','footer-judul')->first()->isi}}@else
                             Masukkan Footer @endif</a> <button class="btn btn-light" data-toggle="modal"

@@ -20,7 +20,7 @@ class AbsensiController extends Controller
         $absensi    = Absensi::orderBy('created_at','DESC')->get();
         $lastabsensi= $absensi->first();
         if($lastabsensi){
-            $url        = 'siswa/absensi/materi-pembelajaran/'.$lastabsensi->id.'/'.Str::slug($lastabsensi->materi_pembelajaran, "%20").$lastabsensi->id;
+            $url        = 'siswa/absensi/materi-pembelajaran/'.$lastabsensi->id.'/'.$lastabsensi->materi_pembelajaran;
         }else{
             $url = '';
         }
@@ -101,7 +101,7 @@ class AbsensiController extends Controller
                     $data[] = $databaru;
                 }
             }
-            return Excel::download(new DataAbsensExport($request->get('format_waktu'),$data,$waktu,$request->get('filter')), 'DataSiswa.'.$request->get('extension'));
+            return Excel::download(new DataAbsensExport($request->get('format_waktu'),$data,$waktu,$request->get('filter')), 'DataAbsensi.'.$request->get('extension'));
         } catch (Exception $e){
             alert()->warning('Maaf','Data gagal didownload');
             return redirect()->back();

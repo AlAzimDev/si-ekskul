@@ -34,6 +34,10 @@ class SoalController extends Controller
     }
     public function store(Request $request){
         try{
+            if($request->get('waktu_mulai') > $request->get('waktu_berhenti')){
+                alert()->warning('Maaf','Waktu Mulai tidak boleh melebihi waktu berhenti');
+                return redirect()->back();
+            }
             $soal               = new Soal();
             $soal->judul_soal   = $request->get('judul_soal');
             $soal->waktu_mulai  = $request->get('waktu_mulai');
@@ -56,6 +60,10 @@ class SoalController extends Controller
     }
     public function update(Request $request, $id, $judul_soal){
         try{
+            if($request->get('waktu_mulai') > $request->get('waktu_berhenti')){
+                alert()->warning('Maaf','Waktu Mulai tidak boleh melebihi waktu berhenti');
+                return redirect()->back();
+            }
             $soal               = Soal::where([['id',$id],['judul_soal',$judul_soal]])->first();
             $soal->judul_soal   = $request->get('judul_soal');
             $soal->waktu_mulai  = $request->get('waktu_mulai');

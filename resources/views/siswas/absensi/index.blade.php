@@ -13,7 +13,7 @@
                     </div>
                     <div class="text">
                         <h2>{{number_format($c_absen)}}</h2>
-                        <span>Anda telah mengikuti {{number_format($c_absen)}} kali pertemuan di ekstrakulikuler ACC</span>
+                        <span>Anda telah mengikuti {{number_format($c_absen)}} kali pertemuan di ekstrakulikuler</span>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                 <thead>
                 <tr>
                     <th>Materi Pembelajaran</th>
-                    <th style="text-align: right">Rata-Rata Nilai</th>
+                    <th style="text-align: right">Nilai</th>
                 </tr>
                 </thead>
                 <tbody>

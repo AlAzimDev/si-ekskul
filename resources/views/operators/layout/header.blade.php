@@ -9,7 +9,7 @@
     <meta name="keywords" content="Sistem Informasi Ektrakurikuler ACC">
 
     <!-- Title Page-->
-    <title>@yield('judul-page') - ACC Petugas</title>
+    <title>@yield('judul-page') | Petugas</title>
 
     <link rel="icon" href="{{asset('image/icon.jpg')}}" type="image/icon type"/>
 

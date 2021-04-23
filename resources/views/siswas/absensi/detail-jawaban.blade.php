@@ -28,7 +28,7 @@
                         @endforeach
                             <div class="row form-group">
                                 <div class="col col-md-12 float-right">
-                                    <label for="hf-materi-pembelajaran" class=" form-control-label float-right">Dengan Rata-Rata Nilai: {{number_format($jawabans->avg('persentasi'),2)}}.</label>
+                                    <label for="hf-materi-pembelajaran" class=" form-control-label float-right">Dengan Nilai: {{number_format($jawabans->avg('persentasi'),2)}}.</label>
                                 </div>
                             </div>
                         </form>

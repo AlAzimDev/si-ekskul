@@ -9,7 +9,7 @@
     <meta name="keywords" content="Sistem Informasi Ektrakurikuler ACC">
 
     <!-- Title Page-->
-    <title>@yield('judul-page') - ACC Admin</title>
+    <title>@yield('judul-page') | Admin</title>
 
     <link rel="icon" href="{{asset('image/icon.jpg')}}" type="image/icon type"/>
 

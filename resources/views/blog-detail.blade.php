@@ -1,7 +1,7 @@
 @extends('layouts.myApp')
 
 @section('judul-page')
-Blog - {{$data->judul_blog}}
+{{$data->judul_blog}} - Blog
 @endsection
 
 @section('head')
@@ -41,7 +41,7 @@ Blog - {{$data->judul_blog}}
             <div class="text">
               <h3 class="heading"><a href="{{URL::to('home/blog')}}/{{$blog->id}}/{{$blog->judul_blog}}/data"">{{$blog->judul_blog}}</a></h3>
               <div class="meta">
-                <div><a href="{{URL::to('home/blog')}}/{{$blog->id}}/{{$blog->judul_blog}}/data""><span class="icon-calendar"></span> {{$blog->created_at}}</a></div>
+                <div><a href="{{URL::to('home/blog')}}/{{$blog->id}}/{{$blog->judul_blog}}/data""><span class="icon-calendar"></span> {{date('d M Y', strtotime($blog->created_at))}}</a></div>
               </div>
             </div>
           </div>

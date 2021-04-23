@@ -33,7 +33,7 @@ class AbsensiController extends Controller
     public function absen($id, $data){
         try {
             $r_absen    = Absensi::find($id);
-            if($data == Str::slug($r_absen->materi_pembelajaran.$r_absen->id, " ")){
+            if($data == $r_absen->materi_pembelajaran){
                 $d_absen    = DataAbsen::where([['id_absen',$id],['id_user',Auth::User()->id]])->first();
                 if($d_absen != null){
                     alert()->info('Anda sudah melakukan absen!','');
@@ -50,6 +50,7 @@ class AbsensiController extends Controller
                     return redirect()->route('siswa-profile');
                 }
             }
+            alert()->warning('Absen tidak ditemukan!','');
             return redirect()->route('siswa-profile');
         } catch (\Exception $th) {
             report($th);

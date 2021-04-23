@@ -8,7 +8,7 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 //Free User
 Route::get('/', function(){
     return redirect()->route('home');
-});
+})->name('index');
 Route::group(['prefix' => 'home'], function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/blog', 'HomeController@blog')->name('blog');

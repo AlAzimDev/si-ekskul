@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Blog</title>
+    <title>Blog | Admin</title>
     <link rel="icon" href="{{asset('image/icon.jpg')}}" type="image/icon type"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -39,7 +39,7 @@
     
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-      <a class="navbar-brand" href="{{route('home')}}"><i class="flaticon-university"></i>SMK2GGK <br><small>Ekstrakulikuler</small></a>
+      <a class="navbar-brand" href="{{route('home')}}"><i class="flaticon-university"></i>@if($home->where('jenis','title')->first()){{$home->where('jenis','title')->first()->isi}}@else @if($home->where('jenis','title')->first()){{$home->where('jenis','title')->first()->isi}}@else SMKN 2 Guguak @endif @endif <br><small>Ekstrakulikuler</small></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="oi oi-menu"></span> Menu
       </button>
@@ -77,7 +77,7 @@
                                     @csrf
                                     <div class="row form-group">
                                         <div class="col col-md-3">
-                                            <label for="hf-judul-blog" class=" form-control-label">Judul Soal</label>
+                                            <label for="hf-judul-blog" class=" form-control-label">Judul</label>
                                         </div>
                                         <div class="col-12 col-md-9">
                                             <input type="text" id="hf-judul-blog" name="judul_blog" placeholder="Masukkan Judul Blog..." required="" class="form-control">
@@ -135,9 +135,9 @@
                         </a>
                         <div class="text p-4 d-block">
                             <div class="meta mb-3">
-                                <div><a href="{{URL::to('tutor/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data">{{$data->created_at}}</a><a href="{{URL::to('tutor/blog')}}/{{$data->id}}/{{$data->judul_blog}}/hapus" class="btn btn-danger"><i class="icon-trash"></i></a></div>
+                                <div><a href="{{URL::to('tutor/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data">{{date('d M Y', strtotime($data->created_at))}}</a></div>
                             </div>
-                            <h3 class="heading mt-3"><a href="{{URL::to('tutor/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data">{{$data->judul_blog}}</a></h3>
+                            <h3 class="heading mt-3"><a href="{{URL::to('tutor/blog')}}/{{$data->id}}/{{$data->judul_blog}}/hapus" class="btn btn-danger"><i class="icon-trash"></i></a> <a href="{{URL::to('tutor/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data">{{$data->judul_blog}}</a></h3>
                         </div>
                     </div>
                 </div>
@@ -152,7 +152,7 @@
         <div class="row mb-5">
           <div class="col-md-5">
             <div class="ftco-footer-widget mb-4">
-              <h2><a class="navbar-brand" href="/home"><i class="flaticon-university"></i>SMK2GGK <br><small>Ekstrakulikuler</small></a></h2>
+              <h2><a class="navbar-brand" href="/home"><i class="flaticon-university"></i>@if($home->where('jenis','title')->first()){{$home->where('jenis','title')->first()->isi}}@else @if($home->where('jenis','title')->first()){{$home->where('jenis','title')->first()->isi}}@else SMKN 2 Guguak @endif @endif <br><small>Ekstrakulikuler</small></a></h2>
               @yield('button-tambahan')<p>@if($home->where('jenis','description2')->first()){{$home->where('jenis','description2')->first()->isi}}@else Deskripsi tentang webiste ini @endif</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 @if(($home->where('jenis','social-facebook')->first() != null)&&($home->where('jenis','social-facebook')->first()->isi != null))
@@ -176,7 +176,7 @@
                 <div class="text">
                   <h3 class="heading"><a href="{{URL::to('tutor/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data">{{$data->judul_blog}}</a></h3>
                   <div class="meta">
-                    <div><a href="{{URL::to('tutor/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data"><span class="icon-calendar"></span> {{$data->created_at}}</a></div>
+                    <div><a href="{{URL::to('tutor/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data"><span class="icon-calendar"></span> {{date('d M Y', strtotime($data->created_at))}}</a></div>
                   </div>
                 </div>
               </div>
@@ -187,7 +187,7 @@
         <div class="row">
           <div class="col-md-12 text-center">
 
-            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> by DonutTimAmpga | <a href="@if($home->where('jenis','footer-link')->first()){{$home->where('jenis','footer-link')->first()->isi}}@endif" target="_blank">@if($home->where('jenis','footer-judul')->first()){{$home->where('jenis','footer-judul')->first()->isi}}@else Masukkan Footer @endif</a> @yield('button-footer-tambahan')</p>
+            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> by Azim | <a href="@if($home->where('jenis','footer-link')->first()){{$home->where('jenis','footer-link')->first()->isi}}@endif" target="_blank">@if($home->where('jenis','footer-judul')->first()){{$home->where('jenis','footer-judul')->first()->isi}}@else Masukkan Footer @endif</a> @yield('button-footer-tambahan')</p>
           </div>
         </div>
       </div>

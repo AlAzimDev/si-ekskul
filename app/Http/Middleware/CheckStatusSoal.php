@@ -15,8 +15,11 @@ class CheckStatusSoal
         $data   = User::find(Auth::User()->id);
         if($data->data_siswa->id_soal != null){
             $soal   = Soal::find($data->data_siswa->id_soal);
-            alert()->info('Selesaikan latihan ini terlebih dahulu!','');
-            return redirect('siswa/'.$soal->id.'/soal/'.Str::slug($soal->judul_soal.$soal->id, "%20"));
+            if($soal){
+                alert()->info('Selesaikan latihan ini terlebih dahulu!','');
+                return redirect('siswa/'.$soal->id.'/soal/'.Str::slug($soal->judul_soal.$soal->id, "%20"));
+            }
+            alert()->warning('Soal tidak ditemukan!','');
         }
         return $next($request);
     }

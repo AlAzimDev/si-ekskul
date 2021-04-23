@@ -12,7 +12,7 @@
                 <tr>
                     <th>Nama Siswa</th>
                     <th>Email</th>
-                    <th style="text-align: right">Rata-Rata Nilai</th>
+                    <th style="text-align: right">Nilai</th>
                 </tr>
                 </thead>
                 <tbody>

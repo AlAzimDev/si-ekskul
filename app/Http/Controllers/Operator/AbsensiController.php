@@ -20,7 +20,7 @@ class AbsensiController extends Controller
         $absensi    = Absensi::orderBy('created_at','DESC')->get();
         $lastabsensi= $absensi->first();
         if($lastabsensi){
-            $url        = 'siswa/absensi/materi-pembelajaran/'.$lastabsensi->id.'/'.Str::slug($lastabsensi->materi_pembelajaran, "%20").$lastabsensi->id;
+            $url        = 'siswa/absensi/materi-pembelajaran/'.$lastabsensi->id.'/'.$lastabsensi->materi_pembelajaran;
         }else{
             $url = '';
         }

@@ -1,6 +1,6 @@
 @extends('layouts.myApp')
 
-@section('judul-page','SMK N 2 GUGUAK - Ekstrakurikuler')
+@section('judul-page','Ekstrakurikuler')
 
 @section('content')
 <div class="hero-wrap" style="background-image: url('{{asset('image/home/bg1-image.jpg')}}'); background-attachment:fixed;">
@@ -81,7 +81,7 @@
     </div>
 </section>
 
-
+@if($home->where('jenis','link-video')->first())
 <section class="ftco-section-3 img" style="background-image: url({{asset('image/home/bg2-image.jpg')}});">
     <div class="overlay"></div>
     <div class="container">
@@ -89,13 +89,15 @@
             <div class="col-md-9 about-video text-center">
                 <h2 class="ftco-animate">@if($home->where('jenis','judul-menengah')->first()){{$home->where('jenis','judul-menengah')->first()->isi}}@else Tentang Kami @endif <br/>Tekan tombol di dibawah!</h2>
                 <div class="video d-flex justify-content-center">
-                    <iframe width="560" height="315" src="@if($home->where('jenis','link-video')->first()){{$home->where('jenis','link-video')->first()->isi}}@endif" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe width="100%" height="315" src="@if($home->where('jenis','link-video')->first()){{$home->where('jenis','link-video')->first()->isi}}@endif" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
     </div>
 </section>
+@endif
 
+@if($blogs->count() > 0)
 <section class="ftco-section bg-light">
     <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
@@ -112,7 +114,7 @@
                         </a>
                         <div class="text p-4 d-block">
                             <div class="meta mb-3">
-                                <div><a href="{{URL::to('home/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data">{{$data->created_at}}</a></div>
+                                <div><a href="{{URL::to('home/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data">{{date('d M Y', strtotime($data->created_at))}}</a></div>
                             </div>
                             <h3 class="heading mt-3"><a href="{{URL::to('home/blog')}}/{{$data->id}}/{{$data->judul_blog}}/data">{{$data->judul_blog}}</a></h3>
                         </div>
@@ -122,4 +124,6 @@
         </div>
     </div>
 </section>
+@endif
+@include('sweetalert::alert')
 @endsection
