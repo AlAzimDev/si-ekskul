@@ -166,8 +166,8 @@
     }
     })
   })
-    function operatorDelete() {
-        var postId = $(event.currentTarget).data('operator');
+    function adminDelete() {
+        var postId = $(event.currentTarget).data('admin');
         swal({
             title: "yakin untuk menghapus data ini?",
             type: "info",

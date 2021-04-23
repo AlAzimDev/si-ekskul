@@ -70,7 +70,7 @@ class SoalController extends Controller
             $soal->waktu_berhenti=$request->get('waktu_berhenti');
             $soal->update();
             alert()->success('Sukses','Data berhasil diupdate');
-            return redirect()->route('admin-soal-home');
+            return redirect()->route('operator-soal-home');
         }catch(Exception $e){
             alert()->warning('Maaf','Data gagal diupdate');
             return redirect()->back();
