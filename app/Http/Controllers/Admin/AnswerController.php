@@ -68,7 +68,7 @@ class AnswerController extends Controller
                     $id_users[] = $answer->id_user;
                 }
                 if($soal->count() > 0){
-                    $users = User::whereIn('id', $id_users)->where('role', '==', 0)->get(); //siswa yang persentasi jawaban masih 0
+                    $users = User::whereIn('id', $id_users)->where('role', 0)->get(); //siswa yang persentasi jawaban masih 0
                     return view('admins.jawaban.user-jawaban', compact('users','id','judul_soal'));
                 }
             }else{
