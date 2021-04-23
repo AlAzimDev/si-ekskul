@@ -96,7 +96,7 @@ class DatabaseSeeder extends Seeder
             'created_at' => Carbon::now()->subMonths(1),
             'updated_at' => Carbon::now()->subMonths(1),
         ]);
-        DB::table('users')->insert([,
+        DB::table('users')->insert([
             'name' => 'Siswa Enam',
             'email' => 'siswa6@gmail.com',
             'password' => Hash::make('secret123'),
