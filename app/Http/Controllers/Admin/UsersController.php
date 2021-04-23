@@ -94,11 +94,8 @@ class UsersController extends Controller
             $user->password2    = $request->get('password');
             $user->role         = 2;
 
-            if($user->save()){
-                alert()->success('Sukses','Data sukses disimpan');
-                return redirect()->back();
-            }
-            alert()->warning('Maaf','Terjadi masalah dalam penginputan data, harap periksa ulang');
+            $user->save();
+            alert()->success('Sukses','Data sukses disimpan');
             return redirect()->back();
         } catch (Exception $e){
             alert()->warning('Maaf','Terjadi masalah dalam penginputan data, harap periksa ulang');
