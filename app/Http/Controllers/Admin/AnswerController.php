@@ -76,6 +76,7 @@ class AnswerController extends Controller
                 return redirect()->back();
             }
         } catch (\Throwable $th) {
+            dd($th);
             return redirect()->back();
         }
     }

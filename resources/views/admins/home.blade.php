@@ -95,7 +95,7 @@
                                                 value="@if($home->where('jenis','judul-besar')->first()){{$home->where('jenis','judul-besar')->first()->isi}}@endif">
                                         </div>
                                     </div>
-                                    <div class="row form-group">
+                                    {{-- <div class="row form-group">
                                         <div class="col col-md-3">
                                             <label for="hf-image" class=" form-control-label">Background Image</label>
                                         </div>
@@ -108,7 +108,7 @@
                                         <div class="col-12 col-md-12">
                                             <p>* Note: Masukkan foto baru dengan format .jpg untuk mengubah background image.</p>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </form>
                             </div>
                         </div>
@@ -159,7 +159,7 @@
                                                 class="form-control">@if($home->where('jenis','description1')->first()){{$home->where('jenis','description1')->first()->isi}}@endif</textarea>
                                         </div>
                                     </div>
-                                    <div class="row form-group">
+                                    {{-- <div class="row form-group">
                                         <div class="col col-md-3">
                                             <label for="hf-ct1-image" class=" form-control-label">Image 1</label>
                                         </div>
@@ -182,7 +182,7 @@
                                             <p>* Note: Masukkan foto baru berformat .jpg untuk mengubah foto, kosongkan
                                                 jika tidak ingin menukar.</p>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="row form-group">
                                         <div class="col-12 col-md-12">
                                             <input type="text" name="w1" placeholder="Masukkan Text..." required=""
@@ -244,7 +244,7 @@
                                                 value="@if($home->where('jenis','judul-menengah')->first()){{$home->where('jenis','judul-menengah')->first()->isi}}@endif">
                                         </div>
                                     </div>
-                                    <div class="row form-group">
+                                    {{-- <div class="row form-group">
                                         <div class="col col-md-3">
                                             <label for="hf-image" class=" form-control-label">Background Image</label>
                                         </div>
@@ -258,7 +258,7 @@
                                             <p>* Note: Masukkan foto baru dengan format .jpg untuk mengubah background
                                                 image.</p>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="row form-group">
                                         <div class="col col-md-3">
                                             <label for="hf-link-video" class=" form-control-label">Link</label>
@@ -406,7 +406,7 @@
                                             <p>* Note: Gunakan http atau https pada link.</p>
                                         </div>
                                     </div>
-                                    <div class="row form-group">
+                                    {{-- <div class="row form-group">
                                         <div class="col col-md-3">
                                             <label for="hf-image" class=" form-control-label">Background Image</label>
                                         </div>
@@ -420,7 +420,7 @@
                                             <p>* Note: Masukkan foto baru dengan format .jpg untuk mengubah background
                                                 image.</p>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </form>
                             </div>
                         </div>
