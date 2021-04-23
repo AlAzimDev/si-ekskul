@@ -47,7 +47,7 @@ class BlogController extends Controller
         try {
             $blog   = Blog::find($id);
             if($blog->judul_blog == $judul_blog){
-                unlink('image/blog/'.$blog->image);
+                if(unlink('image/blog/'.$blog->image)){}
                 $blog->delete();
                 return redirect()->back();
             }
