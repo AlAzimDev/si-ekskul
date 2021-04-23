@@ -160,7 +160,7 @@ class DatabaseSeeder extends Seeder
             'alamat' => 'Padang',
             'handphone' => '085156055275',
             'id_soal' => null,
-            'id_user' => 7,
+            'id_user' => 8,
             'created_at' => Carbon::now()->subMonths(1),
             'updated_at' => Carbon::now()->subMonths(1),
         ]);
@@ -173,7 +173,7 @@ class DatabaseSeeder extends Seeder
             'alamat' => 'Padang',
             'handphone' => '085156055275',
             'id_soal' => null,
-            'id_user' => 7,
+            'id_user' => 9,
             'created_at' => Carbon::now()->subMonths(1),
             'updated_at' => Carbon::now()->subMonths(1),
         ]);
@@ -186,7 +186,7 @@ class DatabaseSeeder extends Seeder
             'alamat' => 'Padang',
             'handphone' => '085156055275',
             'id_soal' => null,
-            'id_user' => 7,
+            'id_user' => 10,
             'created_at' => Carbon::now()->subMonths(1),
             'updated_at' => Carbon::now()->subMonths(1),
         ]);
