@@ -101,7 +101,7 @@ class UsersController extends Controller
             alert()->warning('Maaf','Terjadi masalah dalam penginputan data, harap periksa ulang');
             return redirect()->back();
         } catch (Exception $e){
-            dd($e);
+            // dd($e);
             alert()->warning('Maaf','Terjadi masalah dalam penginputan data, harap periksa ulang');
             return redirect()->back();
         }

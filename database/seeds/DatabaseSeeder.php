@@ -52,7 +52,6 @@ class DatabaseSeeder extends Seeder
         ]);
         // User Siswa
         DB::table('users')->insert([
-            'id' => 5,
             'name' => 'Siswa Satu',
             'email' => 'siswa1@gmail.com',
             'password' => Hash::make('secret123'),
@@ -62,7 +61,6 @@ class DatabaseSeeder extends Seeder
             'updated_at' => Carbon::now()->subMonths(4),
         ]);
         DB::table('users')->insert([
-            'id' => 6,
             'name' => 'Siswa Dua',
             'email' => 'siswa2@gmail.com',
             'password' => Hash::make('secret123'),
@@ -72,7 +70,6 @@ class DatabaseSeeder extends Seeder
             'updated_at' => Carbon::now()->subMonths(4),
         ]);
         DB::table('users')->insert([
-            'id' => 7,
             'name' => 'Siswa Tiga',
             'email' => 'siswa3@gmail.com',
             'password' => Hash::make('secret123'),
@@ -82,7 +79,6 @@ class DatabaseSeeder extends Seeder
             'updated_at' => Carbon::now()->subMonths(3),
         ]);
         DB::table('users')->insert([
-            'id' => 8,
             'name' => 'Siswa Empat',
             'email' => 'siswa4@gmail.com',
             'password' => Hash::make('secret123'),
@@ -92,7 +88,6 @@ class DatabaseSeeder extends Seeder
             'updated_at' => Carbon::now()->subMonths(1),
         ]);
         DB::table('users')->insert([
-            'id' => 9,
             'name' => 'Siswa Lima',
             'email' => 'siswa5@gmail.com',
             'password' => Hash::make('secret123'),
@@ -101,8 +96,7 @@ class DatabaseSeeder extends Seeder
             'created_at' => Carbon::now()->subMonths(1),
             'updated_at' => Carbon::now()->subMonths(1),
         ]);
-        DB::table('users')->insert([
-            'id' => 10,
+        DB::table('users')->insert([,
             'name' => 'Siswa Enam',
             'email' => 'siswa6@gmail.com',
             'password' => Hash::make('secret123'),
