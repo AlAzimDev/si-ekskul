@@ -9,7 +9,7 @@ use App\Soal;
 use App\User;
 use App\Answer;
 use App\DataSoal;
-use App\Notifikasi;
+use App\notifikasi;
 use Carbon\Carbon;
 
 class AnswerController extends Controller
@@ -137,7 +137,7 @@ class AnswerController extends Controller
                     Answer::where('id',$request->id[$item])->update(['persentasi' => $request->persentasi[$item]]);
                     $id_user = $request->id[$item];
                 }
-                $notifikasi = New Notifikasi;
+                $notifikasi = New notifikasi;
                 $notifikasi->judul_notifikasi = 'Jawaban Anda Telah Diperiksa';
                 $notifikasi->isi_notifikasi = 'tap disini untuk melihat lebih detail';
                 $notifikasi->url = 'siswa/absensi-nilai';
