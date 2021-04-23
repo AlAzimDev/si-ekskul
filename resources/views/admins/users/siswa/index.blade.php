@@ -31,7 +31,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body card-block">
-                            <form method="post" id="form1" class="form-horizontal" action="{{route('admin-users-siswa-store')}}/" >
+                            <form method="post" id="form1" class="form-horizontal" action="{{route('admin-users-siswa-store')}}" >
                                 @csrf
                                 <div class="row form-group">
                                     <div class="col col-md-3">

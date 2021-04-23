@@ -26,8 +26,9 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body card-block">
-                            <form method="post" id="form1" class="form-horizontal" action="{{route('admin-users-operator-store')}}/" >
+                            <form method="post" id="form1" class="form-horizontal" action="{{route('admin-users-operator-store')}}" >
                                 @csrf
+                                {{ csrf_field() }}
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="hf-name" class=" form-control-label">Username</label>
